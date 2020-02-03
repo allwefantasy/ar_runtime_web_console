@@ -1,0 +1,11 @@
+.idea/
+logs/
+target/
+.DS_Store
+dependency-reduced-pom.xml
+dev/docker/*.jar
+*.iml
+release
+.sfcli/
+build/scala*
+build/zinc*
