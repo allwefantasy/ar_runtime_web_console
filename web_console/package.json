@@ -6,10 +6,13 @@
   "proxy": "http://127.0.0.1:9007",
   "dependencies": {
     "@allwefantasy/web-platform-ui": "^1.0.8",
+    "@blueprintjs/core": "^3.23.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
+    "antd": "^3.26.9",
     "react": "^16.12.0",
+    "react-confirm-alert": "^2.4.1",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.1"
   },

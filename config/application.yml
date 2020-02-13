@@ -6,9 +6,9 @@ development:
     mysql:
       host: 127.0.0.1
       port: 3306
-      database: xxxxx
-      username: xxxxx
-      password: xxxxx
+      database: basic_app_runtime
+      username: root
+      password: mlsql
       initialSize: 8
       disable: true
       removeAbandoned: true
@@ -71,4 +71,4 @@ http:
     accept:
       timeout: 43200000
 
-admin_token: b3062634-b0e5-4ad2-92d8-d27f4d298d41
+admin_token: admin
