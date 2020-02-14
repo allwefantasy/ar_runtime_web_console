@@ -44,7 +44,7 @@ export default class TableView extends React.Component {
     const classes = this.useStyles();
 
     const tableHeaders = this.state.columns.map(item=>{        
-        return <TableCell>item</TableCell>  
+        return <TableCell>{item}</TableCell>  
     })
 
     const tableRows = this.state.rows.map((row)=>{

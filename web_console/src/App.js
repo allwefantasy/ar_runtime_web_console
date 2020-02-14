@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import { HelloSwitcher } from './router/HelloSwitcher';
+import { APIViewSwitcher } from './router/APIViewSwitcher';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <HelloSwitcher app={this}></HelloSwitcher>
+        <APIViewSwitcher app={this}></APIViewSwitcher>
       </header>
     </div>
   );

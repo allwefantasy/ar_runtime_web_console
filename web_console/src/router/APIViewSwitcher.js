@@ -1,7 +1,7 @@
 import React from 'react';
-import Hello from '../components/Hello';
+import APIView from '../components/APIView';
 
-export class HelloSwitcher extends React.Component{
+export class APIViewSwitcher extends React.Component{
     constructor(props){
         super(props)
         this.app = props.app
@@ -22,12 +22,12 @@ export class HelloSwitcher extends React.Component{
    render(){
        if(this.state.page1){
         return (<div>
-        <Hello  router={this}></Hello>
+        <APIView  router={this}></APIView>
         </div>)
        }     
      else {
         return (<div>
-        <Hello  router={this}></Hello>
+        <APIView  router={this}></APIView>
         </div>)
      }
    }

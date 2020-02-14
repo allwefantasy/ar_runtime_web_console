@@ -6,7 +6,7 @@ import RemoteAction from '../service/RemoteAction'
 import TableView from './api_form/TableView'
 
 
-export default class Hello extends React.Component{
+export default class APIView extends React.Component{
     constructor(props) {
         super(props)
         this.router = props.router
