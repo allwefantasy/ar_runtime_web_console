@@ -15,7 +15,7 @@ export class FormBuilder {
      * @param {string} action 
      */
     async build(action,submit){        
-        const res = await this.proxy.get(action,{"__HELP__":"true"})                
+        const res = await this.proxy.post(action,{"__HELP__":"true"})                
         /**@type {[]} */
         const json = res.content
         
