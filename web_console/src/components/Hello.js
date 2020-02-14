@@ -1,5 +1,8 @@
 import React from 'react'
 import {ActionProxy} from '../service/ActionProxy'
+import { FormBuilder } from './api_form/Form'
+import RemoteAction from '../service/RemoteAction'
+import TableView from './api_form/TableView'
 
 
 export default class Hello extends React.Component{
@@ -10,13 +13,19 @@ export default class Hello extends React.Component{
     }
         
     async componentDidMount(){
-       const proxy = new ActionProxy()
-       const resp = await proxy.hello()
-       this.setState({hello:resp.content.msg})       
+       const proxy = new ActionProxy()       
+       const builder = new FormBuilder(proxy)
+       const comps = await builder.build(RemoteAction.SCRIPT_ACTION) 
+       this.setState({comps:comps})       
     }
 
     render(){
-    return <div>Hello:{this.state.hello}</div>
+
+    return <div>
+        <div>{this.state.comps}</div>
+        <div><TableView data={this.state.data||[]}></TableView> </div>
+    </div>
+    
     }
     
 }

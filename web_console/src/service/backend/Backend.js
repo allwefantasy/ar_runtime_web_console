@@ -1,5 +1,13 @@
 import {BACKEND_URL,AccessToken} from './RestConst'
-export default class Backend {
+
+export class RestResponse {
+    constructor(status,content){
+        this.status = status
+        this.content = content
+    }
+ }
+
+export  class Backend {
     
     constructor(url,fetch_config={}){
         this.url = url      
@@ -17,12 +25,11 @@ export default class Backend {
             let encodedKey = encodeURIComponent(property);
             let encodedValue = encodeURIComponent(params[property]);
             formBody.push(encodedKey + "=" + encodedValue);
-        }
-        formBody.push("action=" + action)
-        let newurl = this.url
+        }        
+        let newurl = this.url + "?" + "action=" + action
 
         if (method === "GET") {
-            newurl = newurl + "?" + formBody
+            newurl = newurl + "&" + formBody.join("&")
             formBody = undefined
         } else {
             formBody = formBody.join("&")
@@ -52,10 +59,4 @@ export default class Backend {
             return new RestResponse(500,err);
         }
     }
-}
-export class RestResponse {
-   constructor(status,content){
-       this.status = status
-       this.content = content
-   }
 }
