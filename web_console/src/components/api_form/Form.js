@@ -25,7 +25,7 @@ export class FormBuilder {
             const element = FormElementMapping.mapping[item.tpe](item,form)
             form.push(element)
         })                
-        return form.build()
+        return form
     }
     
 } 

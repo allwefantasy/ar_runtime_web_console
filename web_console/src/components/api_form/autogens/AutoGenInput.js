@@ -10,9 +10,10 @@ export class AutoGenInput {
     constructor(form,name){
         this.form = form
         this.name = name
+        this.forms = this.form.forms
       }
       handleChange = (event)=>{    
-        this.forms[this.name]=event.target.checked
+        this.forms[this.name]=event.target.value
       }
 
       build(){        

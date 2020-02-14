@@ -14,7 +14,7 @@ export class AutoGenSelect {
         this.forms = this.form.forms
     }
 
-    handleChange = (event) => {
+    handleChange = (event) => {  
         this.forms[this.name] = event.target.value
     }
 

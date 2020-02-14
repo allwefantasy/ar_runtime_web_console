@@ -11,7 +11,7 @@ class ScriptFileAction extends ActionWithHelp {
 
 
   override def _run(params: Map[String, String]): String = {
-    JSONTool.toJsonStr(Map())
+    JSONTool.toJsonStr(List(Map("jack" -> "wow")))
   }
 
   override def _help(): String = {
@@ -27,8 +27,8 @@ object ScriptFileAction {
     val jack = Input("jack", "")
     val wow = Select("wow", List(), valueProvider = Option(() => {
       List(
-        KV(Option("jack1"), Option("hahah")),
-        KV(Option("jack2"), Option("hahah"))
+        KV(Option("jack1"), Option("jack1")),
+        KV(Option("jack2"), Option("jack2"))
       )
     }))
   }

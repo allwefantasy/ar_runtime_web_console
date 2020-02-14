@@ -13,10 +13,16 @@ import Paper from '@material-ui/core/Paper';
 export default class TableView extends React.Component {
     
   constructor(props){ 
-      super(props)     
+      super(props)              
+      this.props = props
+      this.state = {rows:[],columns:[]}
+  }
+
+
+  load = (data)=>{      
       let maxSize = 0
       let maxSizeItem = {}
-      props.data.forEach(item=>{
+      data.forEach(item=>{
         const wow = Object.keys(item).length
         if(wow>maxSize){
             maxSize = wow
@@ -24,26 +30,26 @@ export default class TableView extends React.Component {
         }
 
       })
-      const columns = Object.keys(maxSizeItem)
-      this.state = {rows:props.data,columns:columns}
+      const columns = Object.keys(maxSizeItem) || []         
+      this.setState({rows:data,columns:columns})
   }
 
   useStyles = ()=>makeStyles({
     table: {
-      minWidth: 650,
-    },
+      minWidth: 650,      
+    }   
   });
   
   render(){
     const classes = this.useStyles();
 
-    const tableHeaders = this.state.columns.map(item=>{
+    const tableHeaders = this.state.columns.map(item=>{        
         return <TableCell>item</TableCell>  
     })
 
     const tableRows = this.state.rows.map((row)=>{
        const tableRow = this.state.columns.map(col=>{
-            return <TableCell component="th" scope="row">row[col]</TableCell>  
+            return <TableCell component="th" scope="row">{row[col]}</TableCell>  
         })
        return <TableRow>
            {tableRow}
@@ -51,7 +57,7 @@ export default class TableView extends React.Component {
     })
 
     return (
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} >
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
