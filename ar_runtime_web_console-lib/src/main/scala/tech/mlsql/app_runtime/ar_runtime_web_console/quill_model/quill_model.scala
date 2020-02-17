@@ -10,4 +10,26 @@ case class ScriptUserRw(id: Int, scriptFileId: Int,
                         isOwner: Int,
                         readable: Int,
                         writable: Int,
-                        isDelete: Int)
+                        isDelete: Int) {
+
+}
+
+object ScriptFile {
+  val DIR = 1
+  val FILE = 2
+  val Expanded = 1
+  val NO_Expanded = 2
+}
+
+object ScriptUserRw {
+  val Delete = 1
+  val UnDelete = 2
+  val READ = 1
+  val UNREAD = 2
+
+  val WRITE = 1
+  val UNWRITE = 2
+
+  val OWNER = 1
+  val UNOWNER = 2
+}

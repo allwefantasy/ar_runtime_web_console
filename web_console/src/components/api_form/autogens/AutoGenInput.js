@@ -1,22 +1,23 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField';
+import { AutoGenBaseComp } from './AutoGenBaseComp';
 
 
-export class AutoGenInput {
+export class AutoGenInput extends AutoGenBaseComp{
     /**
      * 
      * @param {AutoGenForm} form 
      */
-    constructor(form,name){
-        this.form = form
-        this.name = name
-        this.forms = this.form.forms
+    constructor(props){
+        super(props)
       }
+      
       handleChange = (event)=>{    
         this.forms[this.name]=event.target.value
+        this.monitors.forEach(monitor=>monitor.reload(this))
       }
 
-      build(){        
+      render(){        
         return (
             
             <TextField 

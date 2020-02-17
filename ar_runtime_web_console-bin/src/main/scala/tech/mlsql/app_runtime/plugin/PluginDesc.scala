@@ -1,6 +1,6 @@
 package tech.mlsql.app_runtime.plugin
 
-import tech.mlsql.app_runtime.ar_runtime_web_console.action.{HelloWorldAction, ScriptFileAction}
+import tech.mlsql.app_runtime.ar_runtime_web_console.action.{CreateScriptFileAction, CreateScriptFileAction_Params_PARENT_ID, ListScriptFileAction}
 import tech.mlsql.app_runtime.ar_runtime_web_console.app.ArRuntimeWebConsoleApp
 import tech.mlsql.serviceframework.platform.{AppRuntimeStore, Plugin, PluginItem, PluginLoader}
 
@@ -8,8 +8,9 @@ class PluginDesc extends Plugin {
   override def entries: List[PluginItem] = {
     List(
       ArRuntimeWebConsoleApp.plugin,
-      HelloWorldAction.plugin,
-      ScriptFileAction.plugin
+      ListScriptFileAction.plugin,
+      CreateScriptFileAction.plugin,
+      CreateScriptFileAction_Params_PARENT_ID.plugin
     )
   }
 

@@ -9,7 +9,7 @@ export class FormBuilder {
      * @param {ActionProxy} proxy      
      */
     constructor(proxy){              
-        this.proxy = proxy                
+        this.proxy = proxy                       
     }
     /**     
      * @param {string} action 
@@ -19,11 +19,11 @@ export class FormBuilder {
         /**@type {[]} */
         const json = res.content
         
-        const form = new AutoGenForm(action,submit)
-
+        const form = <AutoGenForm action={action} submit={submit}></AutoGenForm>
+        
         json.map(item=>{        
-            const element = FormElementMapping.mapping[item.tpe](item,form)
-            form.push(element)
+            const autogen = FormElementMapping.mapping[item.tpe](item,form)            
+            form.push(autogen)            
         })                
         return form
     }

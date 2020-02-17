@@ -3,25 +3,20 @@ import { withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { AutoGenBaseComp } from './AutoGenBaseComp';
 
 
-export class AutoGenCheckBox{
-    /**
-     * 
-     * @param {AutoGenForm} form 
-     */
-    constructor(form,name,values){
-        this.form = form
-        this.name = name
-        this.values = values
-        this.forms = this.form.forms        
+export class AutoGenCheckBox extends AutoGenBaseComp{    
+    constructor(props){
+        super(props)        
       }
-
+      
       handleChange = (event)=>{    
         this.forms[this.name]=event.target.checked
+        this.monitors.forEach(monitor=>monitor.reload(this))
       }
 
-      build(){
+      render(){
         const GreenCheckbox = withStyles({
             root: {
               color: green[400],
@@ -31,7 +26,7 @@ export class AutoGenCheckBox{
             },
             checked: {},
           })(props => <Checkbox color="default" {...props} />);
-        const items = this.values.map(item=>{
+        const items = this.statue.values.map(item=>{
             return <FormControlLabel
         control={
           <GreenCheckbox            

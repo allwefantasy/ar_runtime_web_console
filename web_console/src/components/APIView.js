@@ -32,7 +32,9 @@ export default class APIView extends React.Component{
     async componentDidMount(){
        const proxy = new ActionProxy()       
        const builder = new FormBuilder(proxy)              
-       this.form = await builder.build(RemoteAction.SCRIPT_ACTION,this.submit) 
+       this.form = await builder.build(RemoteAction.SCRIPT_ACTION,this.submit)
+       // add monitor
+       // builder.autogens.filter(item=>item.) 
        this.setState({form:this.form.build()})              
     }
 

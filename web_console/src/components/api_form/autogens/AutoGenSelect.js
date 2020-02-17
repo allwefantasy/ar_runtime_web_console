@@ -1,24 +1,24 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import { AutoGenBaseComp } from './AutoGenBaseComp';
 
-export class AutoGenSelect {
+export class AutoGenSelect extends AutoGenBaseComp{
     /**
    * 
    * @param {AutoGenForm} form 
    */
-    constructor(form, name, values) {
-        this.form = form
-        this.name = name
-        this.values = values
-        this.forms = this.form.forms
+    constructor(props) {
+        super(props)
     }
-
-    handleChange = (event) => {  
-        this.forms[this.name] = event.target.value
+    
+    handleChange = (event)=>{    
+      this.forms[this.name]=event.target.value
+      this.monitors.forEach(monitor=>monitor.reload(this))
     }
+    
 
-    build() {
+    render() {
         return (
             <TextField
                 variant="outlined"
