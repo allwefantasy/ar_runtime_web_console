@@ -14,9 +14,9 @@ import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
 class ListScriptFileAction extends ActionWithHelp {
 
   override def _run(params: Map[String, String]): String = {
-    val userName = params(UserService.Config.USER_NAME)
+    val userId = params(ListScriptFileAction.Params.USER_ID.name).toInt
     val scripts = ctx.run(ctx.query[ScriptUserRw].filter { f =>
-      f.mlsqlUserId == lift(userName) && f.isDelete == ScriptUserRw.UnDelete
+      f.mlsqlUserId == lift(userId) && f.isDelete == lift(ScriptUserRw.UnDelete)
     }.join(ctx.query[ScriptFile]).on((sw, sf) => sw.scriptFileId == sf.id).map(item => item._2))
 
     JSONTool.toJsonStr(scripts)
@@ -31,7 +31,8 @@ class ListScriptFileAction extends ActionWithHelp {
 object ListScriptFileAction {
 
   object Params {
-    val USER_NAME = Input(UserService.Config.USER_NAME, "")
+    //    val USER_NAME = Input(UserService.Config.USER_NAME, "")
+    val USER_ID = Input("userId", "")
   }
 
   def action = "listScriptFile"

@@ -6,11 +6,11 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
 import {BaseComp} from '../../BaseReactComp/BaseComp'
 import { Utils } from '../../../utils/Utils';
+import { ActionProxy } from '../../../service/ActionProxy';
 
 
 
 export  class AutoGenTreeView extends React.Component{
-
     
     constructor(props){
         super(props)
@@ -19,14 +19,14 @@ export  class AutoGenTreeView extends React.Component{
         this.forms = this.form.forms  
         this.json = props.json 
         this.state = {json:props.json}
-        
+
         this.reload = this.reload.bind(this)     
       }    
 
       async reload (input){
         this.collect_dependencies.add(input)        
         const temp2 = new Set(this.dependencies)
-        if(this.collect_dependencies===temp2){
+        if(this.collect_dependencies===temp2){            
           const proxy = new ActionProxy()
           const params = {}
           this.dependencies.forEach(item=>params[item]=this.forms[item])
@@ -66,8 +66,8 @@ class InnerTreeView extends BaseComp{
 
         const roots = Utils.buildTree(this.state.value)
 
-        buildTree =(item)=>{
-            return <TreeItem nodeId={item.id} label={item.label}>
+        const buildTree =(item)=>{
+            return <TreeItem nodeId={item.id} label={item.label} isDir={item.isDir}>
                   {item.childNodes.map(subItem=> buildTree(subItem))}
              </TreeItem> 
         }

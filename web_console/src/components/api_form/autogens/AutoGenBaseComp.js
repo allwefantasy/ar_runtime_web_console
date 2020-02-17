@@ -1,4 +1,5 @@
 import { BaseComp } from "../../BaseReactComp/BaseComp";
+import { ActionProxy } from "../../../service/ActionProxy";
 
 export class AutoGenBaseComp extends BaseComp {
    /**
@@ -23,7 +24,7 @@ export class AutoGenBaseComp extends BaseComp {
       async reload (input){
         this.collect_dependencies.add(input)        
         const temp2 = new Set(this.dependencies)
-        if(this.collect_dependencies===temp2){
+        if(this.collect_dependencies===temp2){          
           const proxy = new ActionProxy()
           const params = {}
           this.dependencies.forEach(item=>params[item]=this.forms[item])

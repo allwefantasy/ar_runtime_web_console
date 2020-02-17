@@ -19,13 +19,12 @@ export class FormBuilder {
         /**@type {[]} */
         const json = res.content
         
-        const form = <AutoGenForm action={action} submit={submit}></AutoGenForm>
-        
+        const form = new AutoGenForm({action:action,submit:submit})  
         json.map(item=>{        
             const autogen = FormElementMapping.mapping[item.tpe](item,form)            
             form.push(autogen)            
         })                
-        return form
+        return form.build()
     }
     
 } 

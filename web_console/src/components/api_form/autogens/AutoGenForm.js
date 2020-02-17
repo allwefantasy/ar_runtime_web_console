@@ -8,10 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Warning from '../Warning'
 
-export class AutoGenForm extends React.Component{
+export class AutoGenForm {
     
-    constructor(props) {        
-        super(props)
+    constructor(props) {                
         this.action = props.action
         this.forms = []
         this.elements = []
@@ -41,7 +40,7 @@ export class AutoGenForm extends React.Component{
     push(item){
         this.elements.push(item)
     }
-    render() {
+    build() {
         const classes = this.useStyles();
     
     return (

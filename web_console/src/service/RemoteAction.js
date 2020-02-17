@@ -1,4 +1,5 @@
 export default class RemoteAction{
     static HELLO = "hello_world" 
-    static SCRIPT_ACTION= "scriptFile"   
+    static LIST_SCRIPT_FILE= "listScriptFile" 
+
 }
