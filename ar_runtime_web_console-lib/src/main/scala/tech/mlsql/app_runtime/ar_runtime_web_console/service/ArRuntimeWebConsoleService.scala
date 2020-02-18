@@ -12,7 +12,7 @@ import scala.collection.mutable.ArrayBuffer
 object ArRuntimeWebConsoleService {
 
   def findScriptFile(scriptId: Int) = {
-    ctx.run(query[quill_model.ScriptFile].filter(_.id == lift(scriptId))).head
+    ctx.run(query[quill_model.ScriptFile].filter(_.id == lift(scriptId))).headOption
   }
 
   def buildFullPath(scriptFile: quill_model.ScriptFile) = {
@@ -20,7 +20,7 @@ object ArRuntimeWebConsoleService {
     var item = scriptFile
     pathBuffer += item.name
     while (item.parentId != 0 && item.parentId != null) {
-      item = findScriptFile(item.parentId)
+      item = findScriptFile(item.parentId).get
       pathBuffer += item.name
     }
     pathBuffer.reverse.mkString("/")
@@ -81,10 +81,10 @@ object ArRuntimeWebConsoleService {
   def findProjectNameFileIn(id: Int) = {
 
 
-    var item = findScriptFile(id)
+    var item = findScriptFile(id).get
     var projectName = ""
     while (item.parentId != 0 && item.parentId != null) {
-      item = findScriptFile(item.parentId)
+      item = findScriptFile(item.parentId).get
       if (item.parentId != 0 && item.parentId != null) {
         projectName = item.name
       }

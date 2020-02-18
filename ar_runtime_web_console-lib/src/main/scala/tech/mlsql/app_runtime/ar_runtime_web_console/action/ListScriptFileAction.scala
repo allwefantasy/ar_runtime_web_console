@@ -4,7 +4,6 @@ import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx
 import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx._
 import tech.mlsql.app_runtime.ar_runtime_web_console.quill_model.{ScriptFile, ScriptUserRw}
 import tech.mlsql.app_runtime.commons.{FormParams, Input}
-import tech.mlsql.app_runtime.plugin.user.action.UserService
 import tech.mlsql.common.utils.serder.json.JSONTool
 import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
 
@@ -14,7 +13,13 @@ import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
 class ListScriptFileAction extends ActionWithHelp {
 
   override def _run(params: Map[String, String]): String = {
-    val userId = params(ListScriptFileAction.Params.USER_ID.name).toInt
+    val userId = try {
+      params(ListScriptFileAction.Params.USER_ID.name).toInt
+    } catch {
+      case e: Exception =>
+        return JSONTool.toJsonStr(List())
+    }
+
     val scripts = ctx.run(ctx.query[ScriptUserRw].filter { f =>
       f.mlsqlUserId == lift(userId) && f.isDelete == lift(ScriptUserRw.UnDelete)
     }.join(ctx.query[ScriptFile]).on((sw, sf) => sw.scriptFileId == sf.id).map(item => item._2))

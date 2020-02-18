@@ -1,5 +1,6 @@
 import React from 'react';
 import APIView from '../components/APIView';
+import RemoteAction from '../service/RemoteAction';
 
 export class APIViewSwitcher extends React.Component{
     constructor(props){
@@ -19,10 +20,10 @@ export class APIViewSwitcher extends React.Component{
       this.setState({page1:false,page2:true})
    }    
 
-   render(){
+   render(){      
        if(this.state.page1){
         return (<div>
-        <APIView  router={this}></APIView>
+        <APIView  router={this} action={RemoteAction.CREATE_SCRIPT_FILE}></APIView>
         </div>)
        }     
      else {

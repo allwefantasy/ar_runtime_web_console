@@ -14,6 +14,7 @@ export class AutoGenForm {
         this.action = props.action
         this.forms = []
         this.elements = []
+        this.instances = []
         this.submit = props.submit
     }
 
@@ -40,6 +41,11 @@ export class AutoGenForm {
     push(item){
         this.elements.push(item)
     }
+
+    pushInstance(item){
+      this.instances.push(item)
+    }
+
     build() {
         const classes = this.useStyles();
     

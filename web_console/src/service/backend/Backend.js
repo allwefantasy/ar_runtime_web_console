@@ -51,7 +51,8 @@ export  class Backend {
         try{
             const response = await fetch(newurl,final_config);
             if (!response.ok) {
-                return new RestResponse(response.status,response.text);
+                const error = await response.text()
+                return new RestResponse(response.status,error);
               }
             const json = await response.json();
             return new RestResponse(200,json);

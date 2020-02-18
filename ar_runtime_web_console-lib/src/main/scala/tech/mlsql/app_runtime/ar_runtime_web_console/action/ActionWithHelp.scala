@@ -1,7 +1,7 @@
 package tech.mlsql.app_runtime.ar_runtime_web_console.action
 
 import tech.mlsql.app_runtime.commons.Input
-import tech.mlsql.serviceframework.platform.action.CustomAction
+import tech.mlsql.serviceframework.platform.action.{ActionContext, CustomAction}
 
 /**
  * 14/2/2020 WilliamZhu(allwefantasy@gmail.com)
@@ -19,6 +19,11 @@ abstract class ActionWithHelp extends CustomAction {
   def _run(params: Map[String, String]): String
 
   def _help(): String
+
+  def render(status: Int, content: String):Unit = {
+    val context = ActionContext.context()
+    render(context.httpContext.response,status,content)
+  }
 }
 
 object ActionWithHelp {

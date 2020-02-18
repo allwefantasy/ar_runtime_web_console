@@ -10,7 +10,7 @@ development:
       username: root
       password: mlsql
       initialSize: 8
-      disable: true
+      disable: false
       removeAbandoned: true
       testWhileIdle: true
       removeAbandonedTimeout: 30

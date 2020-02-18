@@ -1,5 +1,19 @@
 export class Utils {
-     
+    
+    
+    static setEqual=(a,b)=>{
+        const temp1 = [...a]
+        const temp2 = [...b]
+        if(temp1.length!==temp2.length) return false
+        let res = true
+        temp1.forEach(item=>{
+             if(temp2.indexOf(item) === -1){
+                 res = false
+             }
+        })
+        return res
+    }
+
     /**
      *
      * Usage:

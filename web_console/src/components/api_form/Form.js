@@ -14,7 +14,7 @@ export class FormBuilder {
     /**     
      * @param {string} action 
      */
-    async build(action,submit){        
+    async build(action,submit,instances){        
         const res = await this.proxy.post(action,{"__HELP__":"true"})                
         /**@type {[]} */
         const json = res.content
@@ -24,7 +24,7 @@ export class FormBuilder {
             const autogen = FormElementMapping.mapping[item.tpe](item,form)            
             form.push(autogen)            
         })                
-        return form.build()
+        return form
     }
     
 } 

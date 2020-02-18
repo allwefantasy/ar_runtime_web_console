@@ -13,7 +13,7 @@ export class AutoGenInput extends AutoGenBaseComp{
       }
       
       handleChange = (event)=>{    
-        this.forms[this.name]=event.target.value
+        this.forms[this.name]=event.target.value        
         this.monitors.forEach(monitor=>monitor.reload(this))
       }
 

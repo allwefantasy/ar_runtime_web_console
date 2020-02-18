@@ -21,7 +21,7 @@ export default class TableView extends React.Component {
 
   load = (data)=>{      
       let maxSize = 0
-      let maxSizeItem = {}
+      let maxSizeItem = {}      
       data.forEach(item=>{
         const wow = Object.keys(item).length
         if(wow>maxSize){

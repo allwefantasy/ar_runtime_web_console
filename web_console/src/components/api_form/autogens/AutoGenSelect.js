@@ -31,7 +31,7 @@ export class AutoGenSelect extends AutoGenBaseComp{
                 label={this.name}
                 onChange={this.handleChange}
             >
-                {this.values.map(option => (
+                {this.state.values.map(option => (
                     <MenuItem key={option.name} value={option.value}>
                         {option.name}
                     </MenuItem>
