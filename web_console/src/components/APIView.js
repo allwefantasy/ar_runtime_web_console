@@ -18,7 +18,6 @@ export default class APIView extends BaseComp {
         }else {            
             this.submit = this.submit.bind(this)                      
         }
-        this.back = this.back.bind(this)
         
         this.state = {}
     }
@@ -46,14 +45,10 @@ export default class APIView extends BaseComp {
         }
     }
     
-    back(evt){               
-        this.router.popPage()
-    }
-
     async componentDidMount() {
         const proxy = new ActionProxy()
 
-        const builder = new FormBuilder(proxy)
+        const builder = new FormBuilder(proxy,this.router)
         this.form = await builder.build(this.action, this.submit)
 
         await this.setStateSync({ form: this.form.build() })
@@ -74,8 +69,7 @@ export default class APIView extends BaseComp {
     render() {
         const classes = this.useStyles()
         return <div>
-            <div><Warning ref={item => this.errorView = item}></Warning></div>
-            <button onClick={this.back}>返回</button>
+            <div><Warning ref={item => this.errorView = item}></Warning></div>            
             <div>{this.state.form}</div>
             <div style={{ marginTop: "30px" }}><TableView ref={(item) => this.view = item}></TableView> </div>
         </div>
