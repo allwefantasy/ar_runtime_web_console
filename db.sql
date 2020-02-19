@@ -28,3 +28,21 @@ CREATE TABLE `script_file` (
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `api_nav_item`;
+CREATE TABLE `api_nav_item` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(256) DEFAULT NULL,
+  `action` varchar(256) DEFAULT NULL,
+  `api_nav_id` int(11) DEFAULT NULL,
+  `step` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `api_nav`;
+CREATE TABLE `api_nav` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(256) DEFAULT '',
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
