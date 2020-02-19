@@ -14,6 +14,10 @@ case class ScriptUserRw(id: Int, scriptFileId: Int,
 
 }
 
+case class APINavItem(id: Int, title: String, action: String, apiNavId: Int, step: Int)
+
+case class APINav(id: Int, title: String, userId: Int)
+
 object ScriptFile {
   val DIR = 1
   val FILE = 2
