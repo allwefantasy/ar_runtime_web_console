@@ -2,7 +2,7 @@ package tech.mlsql.app_runtime.ar_runtime_web_console.action
 
 import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx
 import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx._
-import tech.mlsql.app_runtime.ar_runtime_web_console.quill_model.APINavItem
+import tech.mlsql.app_runtime.ar_runtime_web_console.quill_model.ApiNavItem
 import tech.mlsql.app_runtime.commons.{Dynamic, FormParams, Input}
 import tech.mlsql.common.utils.serder.json.JSONTool
 import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
@@ -12,7 +12,7 @@ import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
  */
 class ListAPINavItems extends ActionWithHelp {
   override def _run(params: Map[String, String]): String = {
-    val items = ctx.run(ctx.query[APINavItem].filter(_.apiNavId == lift(params(ListAPINavItems.Params.NAV_API_ID.name).toInt)))
+    val items = ctx.run(ctx.query[ApiNavItem].filter(_.apiNavId == lift(params(ListAPINavItems.Params.NAV_API_ID.name).toInt)))
     JSONTool.toJsonStr(items)
   }
 

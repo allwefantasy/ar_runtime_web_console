@@ -35,11 +35,15 @@ export default class APIView extends BaseComp {
         this.router.toPage2(action)
     }
 
+    async goToNav(evt){
+       this.router.toNav() 
+    }
+
     async componentDidMount() {        
         const proxy = new ActionProxy()
         const resp = await proxy.get(this.action,{})
-        const children = resp.content.map(item=>{
-            const comp = <ListItem button onClick={event => this.handleListItemClick(event,item.name)}>
+        const children = resp.content.map((item,index)=>{
+            const comp = <ListItem key={index} button onClick={event => this.handleListItemClick(event,item.name)}>
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
@@ -56,6 +60,12 @@ export default class APIView extends BaseComp {
         return (
             <div className={classes.root}>
               <List component="nav" aria-label="main mailbox folders">
+              <ListItem button onClick={event => this.goToNav(event)}>
+               <ListItemIcon>
+                  <InboxIcon />
+               </ListItemIcon>
+            <ListItemText primary={"==> Go to nav page"} />
+          </ListItem>
               {this.state.items}                
               </List>                            
             </div>

@@ -1,14 +1,19 @@
 import * as React from "react";
 import {Steps, Button, message, List, notification, Card, Col, Row} from 'antd';
+import { ActionProxy } from "../service/ActionProxy";
+import RemoteAction from "../service/RemoteAction"
+import APIView from '../components/APIView';
 
 const Step = Steps.Step;
 
 export default class APINav extends React.Component {
     constructor(props) {
         super(props);
+        this.router = props.router
         this.state = {
             current: 0,
-            steps:[]
+            steps:[],
+            apiNavId:props.apiNavId
         }
         
     }
@@ -20,57 +25,23 @@ export default class APINav extends React.Component {
         });
     };
 
-    generateSteps() {
-        const self = this
-        return [{
-            title: 'Create Team',
-            content: () => {
-                return <Card title={"input your team name"} bordered={true}>
-                    <MLSQLCreateTeamForm parent={self}/>
-                </Card>
-            },
-        }, {
-            title: 'Create Role',
-            content: () => {
-                return <Card title={"Add new role to the team you have created"} bordered={true}>
-                    <MLSQLAddRoleForTeam parent={self}/>
-                </Card>
-            },
-        }, {
-            title: 'Invite user to Role',
-            content: () => {
-                return <Card title={"Add member to the role you have created"} bordered={true}>
-                    <MLSQLAddMemberForRole parent={self}/>
-                </Card>
-            }
-        }, {
-            title: 'Create Backend',
-            content: () => {
-                return <Card title={"Add the cluster information you have setup"} bordered={true}>
-                    <MLSQLAddClusterBackend parent={self}/>
-                </Card>
-            }
-        }, {
-            title: 'Set default backend',
-            content: () => {
-                return <Card title={"Configure the default backend you want use"} bordered={true}>
-                    <MLSQLConfigureDefaultBackend parent={self}/>
-                </Card>
-            }
-        },
-            {
-                title: 'Congratulation!',
-                content: () => {
-                    return <Card title={"All Done"} bordered={true}>
-                        Please go to Console
-                    </Card>
-                }
-            }
-        ];
-    }
 
-    componentDidMount() {
-        this.setState({steps:this.generateSteps()}) 
+    async componentDidMount() {
+        const proxy = new ActionProxy()        
+        const resp = await proxy.get(RemoteAction.LIST_APINavItems,{apiNavId:this.state.apiNavId})
+        if(resp.status === 200){            
+            const items = resp.content.map((item,index)=>{                               
+                return {
+                    title: item.title,
+                    content: ()=>{
+                    return <Card title={item.title} style={{width:"600px"}} bordered={true}>
+                    <APIView router={this.router} key={index}  action={item.action}></APIView>        
+                </Card>}
+                }
+            })            
+            this.setState({steps:items}) 
+        }
+        
     }
 
     next() {
@@ -86,16 +57,19 @@ export default class APINav extends React.Component {
     }
 
     render() {
-        const {current} = this.state;
+        const {current} = this.state;    
+        if(this.state.steps.length==0){
+            return <div>No Items Available</div>
+        }    
         return (
             <div>
                 <div className="steps-action" style={{marginBottom: "30px"}}>
                     {
-                        current < this.steps.length - 1
+                        current < this.state.steps.length - 1
                         && <Button type="primary" onClick={() => this.next()}>Next Step</Button>
                     }
                     {
-                        current === this.steps.length - 1
+                        current === this.state.steps.length - 1
                         && <Button type="primary" onClick={() => message.success('Processing complete!')}>Done</Button>
                     }
                     {
@@ -108,20 +82,10 @@ export default class APINav extends React.Component {
                     }
                 </div>
                 <Steps current={current}>
-                    {this.steps.map(item => <Step key={item.title} title={item.title}/>)}
+                    {this.state.steps.map(item => <Step key={item.title} title={item.title}/>)}
                 </Steps>
                 <div className="steps-content" style={{"margin-top": "30px"}}>
-                    <Row gutter={24}>
-                        <Col span={8}>
-
-
-                        </Col>
-                        <Col span={8}>
-                            {this.steps[current].content()}
-
-                        </Col>
-                    </Row>
-
+                     {this.state.steps[current].content()}
                 </div>
 
             </div>

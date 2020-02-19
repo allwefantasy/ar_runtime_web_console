@@ -2,7 +2,7 @@ package tech.mlsql.app_runtime.ar_runtime_web_console.action
 
 import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx
 import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx._
-import tech.mlsql.app_runtime.ar_runtime_web_console.quill_model.{APINav, APINavItem}
+import tech.mlsql.app_runtime.ar_runtime_web_console.quill_model.{ApiNav, ApiNavItem}
 import tech.mlsql.app_runtime.commons.{Dynamic, FormParams, Input}
 import tech.mlsql.common.utils.serder.json.JSONTool
 import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
@@ -15,12 +15,16 @@ class CreateAPINav extends ActionWithHelp {
     val title = params(CreateAPINav.Params.TITLE.name)
     val userId = params(CreateAPINav.Params.USER_ID.name).toInt
 
-    val navAPIId = ctx.run(ctx.query[APINav].insert(
+    if (ctx.run(ctx.query[ApiNav].filter(_.title == lift(title)).size > 0)) {
+      render(400, JSONTool.toJsonStr(List(Map("msg" -> s"${title} exits"))))
+    }
+
+    val navAPIId = ctx.run(ctx.query[ApiNav].insert(
       _.title -> lift(title),
       _.userId -> lift(userId)
     ).returningGenerated(s => s.id))
 
-    val navAPIs = ctx.run(ctx.query[APINav].filter(_.id == lift(navAPIId)))
+    val navAPIs = ctx.run(ctx.query[ApiNav].filter(_.id == lift(navAPIId)))
     JSONTool.toJsonStr(navAPIs)
   }
 
@@ -44,14 +48,14 @@ object CreateAPINav {
 class CreateAPINavItem extends ActionWithHelp {
   override def _run(params: Map[String, String]): String = {
 
-    val apiNavItemId = ctx.run(ctx.query[APINavItem].insert(
+    val apiNavItemId = ctx.run(ctx.query[ApiNavItem].insert(
       _.title -> lift(params(CreateAPINavItem.Params.TITLE.name)),
       _.action -> lift(params(CreateAPINavItem.Params.ACTION.name)),
       _.apiNavId -> lift(params(CreateAPINavItem.Params.NAV_API_ID.name).toInt),
       _.step -> lift(params(CreateAPINavItem.Params.STEP.name).toInt)
     ).returningGenerated(s => s.id))
 
-    val navAPIItems = ctx.run(ctx.query[APINav].filter(_.id == lift(apiNavItemId)))
+    val navAPIItems = ctx.run(ctx.query[ApiNavItem].filter(_.id == lift(apiNavItemId)))
     JSONTool.toJsonStr(navAPIItems)
   }
 
@@ -69,13 +73,13 @@ object CreateAPINavItem {
       name = "apiNavId",
       subTpe = "Select",
       depends = List(Params.USER_ID.name),
-      valueProviderName = ListAPINav.action)
+      valueProviderName = ChooseAPINav.action)
 
     val ACTION = Dynamic(
-      name = "apiNavId",
+      name = "_action",
       subTpe = "Select",
       depends = List(Params.USER_ID.name),
-      valueProviderName = ListActions.action)
+      valueProviderName = ListActionsForForm.action)
 
     val TITLE = Input("title", "")
     val STEP = Input("step", "")

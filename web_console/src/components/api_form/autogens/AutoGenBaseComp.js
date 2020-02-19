@@ -1,5 +1,6 @@
 import { BaseComp } from "../../BaseReactComp/BaseComp";
 import { ActionProxy } from "../../../service/ActionProxy";
+import { Utils } from "../../../utils/Utils";
 
 export class AutoGenBaseComp extends BaseComp {
    /**
@@ -15,21 +16,26 @@ export class AutoGenBaseComp extends BaseComp {
         this.forms = this.form.forms                        
         this.monitors = []
         this.dependencies = props.dependencies
-        this.collect_dependencies = new Set()
+        this.collect_dependencies = []
         this.action = props.action
 
         this.reload = this.reload.bind(this)
       }
 
       async reload (input){
-        this.collect_dependencies.add(input)        
+        this.collect_dependencies.push(input)        
+        const temp1 = new Set(Array.from(this.collect_dependencies).map(item => item.name))
         const temp2 = new Set(this.dependencies)
-        if(this.collect_dependencies===temp2){          
+        
+        
+        if(Utils.setEqual(temp1,temp2)){          
           const proxy = new ActionProxy()
           const params = {}
-          this.dependencies.forEach(item=>params[item]=this.forms[item])
+          this.dependencies.forEach(item=>params[item]=this.forms[item])          
           const resp = await proxy.backend.request(this.action,params)
-          this.setState({values:resp.content[0].values})
+          if(resp.status === 200){
+            this.setState({values:resp.content})
+          }          
         }
       }
 

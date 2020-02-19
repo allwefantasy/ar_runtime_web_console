@@ -13,7 +13,7 @@ export class FormElementMapping{
             const input = <AutoGenInput ref={item=>form.pushInstance(item)} form={form} name={row.name} values={[]} dependencies={dependencies} action={action}></AutoGenInput> 
             return input
         },
-        "Select": (row,form,dependencies,action)=>{  
+        "Select": (row,form,dependencies,action)=>{              
             const select = <AutoGenSelect ref={item=>form.pushInstance(item)} form={form} name={row.name} values={row.values} dependencies={dependencies} action={action}></AutoGenSelect>
             return select
         },

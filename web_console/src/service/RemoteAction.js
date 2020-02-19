@@ -3,5 +3,8 @@ export default class RemoteAction{
     static LIST_SCRIPT_FILE= "listScriptFile"
     static CREATE_SCRIPT_FILE= "createScriptFile" 
     static LIST_ACTIONS ="listActions"
+    static LIST_APINavItems = "listAPINavItems"
+    static LIST_APINav = "listAPINav"
+    static ChooseAPINav = "chooseAPINav"
 
 }
