@@ -11,49 +11,64 @@ import Paper from '@material-ui/core/Paper';
 
 
 export default class TableView extends React.Component {
-    
-  constructor(props){ 
-      super(props)              
-      this.props = props
-      this.state = {rows:[],columns:[]}
+
+  constructor(props) {
+    super(props)
+    this.props = props
+    this.state = { rows: [], columns: [] }
   }
 
 
-  load = (data)=>{      
-      let maxSize = 0
-      let maxSizeItem = {}      
-      data.forEach(item=>{
-        const wow = Object.keys(item).length
-        if(wow>maxSize){
-            maxSize = wow
-            maxSizeItem = item
+  load = (data) => {
+    let maxSize = 0
+    let maxSizeItem = {}
+    data.forEach(item => {
+      const wow = Object.keys(item).length
+      if (wow > maxSize) {
+        maxSize = wow
+        maxSizeItem = item
+      }
+    })
+    const columns = Object.keys(maxSizeItem) || []
+    const newData = data.map(item => {
+      columns.forEach((col, index) => {
+        const value = item[col]
+        if ((typeof value) === 'object') {
+          item[col] = JSON.stringify(value).substring(0, 300)
         }
-
+        if ((typeof value) === 'array') {          
+          item[col] = value.join(",").substring(0, 300)
+          
+        }
+        if ((typeof value) === 'boolean') {
+          item[col] = value.toString()          
+        }
       })
-      const columns = Object.keys(maxSizeItem) || []         
-      this.setState({rows:data,columns:columns})
+      return item
+    })
+    this.setState({ rows: newData, columns: columns })
   }
 
-  useStyles = ()=>makeStyles({
+  useStyles = () => makeStyles({
     table: {
-      minWidth: 650,      
-    }   
+      minWidth: 650,
+    }
   });
-  
-  render(){
+
+  render() {
     const classes = this.useStyles();
 
-    const tableHeaders = this.state.columns.map(item=>{        
-        return <TableCell>{item}</TableCell>  
+    const tableHeaders = this.state.columns.map(item => {
+      return <TableCell>{item}</TableCell>
     })
 
-    const tableRows = this.state.rows.map((row)=>{
-       const tableRow = this.state.columns.map(col=>{
-            return <TableCell component="th" scope="row">{row[col]}</TableCell>  
-        })
-       return <TableRow>
-           {tableRow}
-       </TableRow>        
+    const tableRows = this.state.rows.map((row) => {
+      const tableRow = this.state.columns.map(col => {
+        return <TableCell component="th" scope="row">{row[col]}</TableCell>
+      })
+      return <TableRow>
+        {tableRow}
+      </TableRow>
     })
 
     return (
@@ -61,7 +76,7 @@ export default class TableView extends React.Component {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-            {tableHeaders}
+              {tableHeaders}
             </TableRow>
           </TableHead>
           <TableBody>

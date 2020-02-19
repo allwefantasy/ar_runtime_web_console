@@ -4,9 +4,7 @@ import tech.mlsql.app_runtime.commons.Input
 import tech.mlsql.common.utils.serder.json.JSONTool
 import tech.mlsql.serviceframework.platform.action.{ActionContext, CustomAction}
 
-/**
- * 14/2/2020 WilliamZhu(allwefantasy@gmail.com)
- */
+
 abstract class ActionWithHelp extends CustomAction {
   override def run(params: Map[String, String]): String = {
     if (params.contains(ActionWithHelp.Params.HELP.name)) {

@@ -33,14 +33,15 @@ export default class APIView extends BaseComp {
         const proxy = new ActionProxy()
         const params = this.form.forms
         const res = await proxy.backend.request(this.action, params)
+        const errorView = this.errorView
         if(res.status !== 200){        
-            this.errorView.warn("Response error", res.content)
-        }
+            errorView.warn("Response error", res.content)
+        }        
         if (res.status ===200 && this.view) {            
             try {
                 this.view.load(res.content)
             } catch (ex) {
-                this.errorView.warn("Data can not display in table",res.content)
+                errorView.warn("Data can not display in table",res.content+"")
             }
         }
     }
