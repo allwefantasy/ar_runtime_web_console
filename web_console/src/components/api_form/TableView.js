@@ -21,7 +21,7 @@ export default class TableView extends React.Component {
 
   load = (data) => {
     
-    if((typeof data) === "object"){
+    if(!Array.isArray(data)){
       data = [data]
     }
 

@@ -8,10 +8,12 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Warning from '../Warning'
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { DynamicAddInput } from '../DynamicAddInput';
 
 export class AutoGenForm {
 
   constructor(props) {
+    
     this.action = props.action
     this.forms = []
     this.elements = []
@@ -51,6 +53,11 @@ export class AutoGenForm {
     evt.preventDefault()
     this.router.popPage()
   }
+
+  addParams = (evt)=>{
+    evt.preventDefault()
+    this.dynamicInputRef.popup()         
+  }
   build() {
     const classes = this.useStyles();
 
@@ -70,6 +77,7 @@ export class AutoGenForm {
           </Typography>
           <form className={classes.form} noValidate>
             {this.elements}
+            <DynamicAddInput ref={item=>this.dynamicInputRef = item} form={this}></DynamicAddInput>
             <ButtonGroup color="primary" aria-label="outlined primary button group">
               <Button
                 type="submit"                
@@ -88,6 +96,15 @@ export class AutoGenForm {
                 onClick={this.back}
               >
                 Back
+            </Button>
+            <Button
+                type="submit"                
+                variant="outlined"
+                color="primary"
+                className={classes.submit}
+                onClick={this.addParams}
+              >
+                Add Params
             </Button>
             </ButtonGroup>
           </form>
