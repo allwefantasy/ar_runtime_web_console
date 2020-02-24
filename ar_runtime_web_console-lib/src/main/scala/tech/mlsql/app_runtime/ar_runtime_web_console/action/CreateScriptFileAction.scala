@@ -4,7 +4,7 @@ import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx
 import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx._
 import tech.mlsql.app_runtime.ar_runtime_web_console.quill_model.{ScriptFile, ScriptUserRw}
 import tech.mlsql.app_runtime.commons._
-import tech.mlsql.app_runtime.plugin.user.action.{ActionRequireResourceAccess, UserService}
+import tech.mlsql.app_runtime.plugin.user.action.{ActionRequireLogin, ActionRequireResourceAccess, UserService}
 import tech.mlsql.common.utils.serder.json.JSONTool
 import tech.mlsql.serviceframework.platform.action.CustomAction
 import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
@@ -13,7 +13,7 @@ import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
 /**
  * 15/2/2020 WilliamZhu(allwefantasy@gmail.com)
  */
-class CreateScriptFileAction extends ActionRequireResourceAccess {
+class CreateScriptFileAction extends ActionRequireLogin {
   override def _run(params: Map[String, String]): String = {
 
     val userId = getUser(params).get.id
@@ -66,13 +66,12 @@ class CreateScriptFileAction extends ActionRequireResourceAccess {
 object CreateScriptFileAction {
 
   object Params {
-    val USER_ID = Input("userId", "")
-    val LOGIN_TOKEN = Input(UserService.Config.LOGIN_TOKEN, "")
+    val USER_NAME = Input(UserService.Config.USER_NAME, "")
 
     val PARENT_ID = Dynamic(
       name = "parentId",
       subTpe = "TreeSelect",
-      depends = List(Params.USER_ID.name),
+      depends = List(Params.USER_NAME.name),
       valueProviderName = CreateScriptFileAction_Params_PARENT_ID.action)
 
     val IS_DIR = Select("isDir", List(), valueProvider = Option(() => {

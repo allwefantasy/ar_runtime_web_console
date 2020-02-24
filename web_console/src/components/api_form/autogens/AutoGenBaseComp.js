@@ -1,6 +1,7 @@
 import { BaseComp } from "../../BaseReactComp/BaseComp";
 import { ActionProxy } from "../../../service/ActionProxy";
 import { Utils } from "../../../utils/Utils";
+import { message } from 'antd';
 
 export class AutoGenBaseComp extends BaseComp {
    /**
@@ -35,6 +36,8 @@ export class AutoGenBaseComp extends BaseComp {
           const resp = await proxy.backend.request(this.action,params)
           if(resp.status === 200){
             this.setState({values:resp.content})
+          }else {
+            message.error(resp.content,6);
           }          
         }
       }

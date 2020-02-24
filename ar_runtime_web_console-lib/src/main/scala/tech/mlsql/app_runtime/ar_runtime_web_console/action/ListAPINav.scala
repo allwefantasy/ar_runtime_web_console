@@ -4,15 +4,16 @@ import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx
 import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx._
 import tech.mlsql.app_runtime.ar_runtime_web_console.quill_model.ApiNav
 import tech.mlsql.app_runtime.commons.{Dynamic, FormParams, Input, KV}
+import tech.mlsql.app_runtime.plugin.user.action.{ActionRequireLogin, ActionRequireResourceAccess, UserService}
 import tech.mlsql.common.utils.serder.json.JSONTool
 import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
 
 /**
  * 19/2/2020 WilliamZhu(allwefantasy@gmail.com)
  */
-class ListAPINav extends ActionWithHelp {
+class ListAPINav extends ActionRequireLogin {
   override def _run(params: Map[String, String]): String = {
-    val userId = params(CreateAPINav.Params.USER_ID.name).toInt
+    val userId = getUser(params).get.id
     val navs = ctx.run(ctx.query[ApiNav].filter(_.userId == lift(userId)))
     JSONTool.toJsonStr(navs)
   }
@@ -24,7 +25,7 @@ class ListAPINav extends ActionWithHelp {
 object ListAPINav {
 
   object Params {
-    val USER_ID = Input("userId", "")
+    val USER_NAME = Input(UserService.Config.USER_NAME, "")
   }
 
   def action = "listAPINav"
@@ -50,11 +51,11 @@ class ChooseAPINav extends ActionWithHelp {
 object ChooseAPINav {
 
   object Params {
-    val USER_ID = Input("userId", "")
+    val USER_NAME = Input(UserService.Config.USER_NAME, "")
     val NAV_API_ID = Dynamic(
       name = "apiNavId",
       subTpe = "Select",
-      depends = List(Params.USER_ID.name),
+      depends = List(Params.USER_NAME.name),
       valueProviderName = ChooseAPINav.action)
   }
 

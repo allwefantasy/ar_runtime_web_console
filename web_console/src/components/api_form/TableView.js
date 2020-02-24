@@ -20,6 +20,11 @@ export default class TableView extends React.Component {
 
 
   load = (data) => {
+    
+    if((typeof data) === "object"){
+      data = [data]
+    }
+
     let maxSize = 0
     let maxSizeItem = {}
     data.forEach(item => {

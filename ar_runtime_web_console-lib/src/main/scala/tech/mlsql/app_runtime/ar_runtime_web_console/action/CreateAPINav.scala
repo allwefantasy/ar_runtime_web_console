@@ -4,15 +4,14 @@ import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx
 import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx._
 import tech.mlsql.app_runtime.ar_runtime_web_console.quill_model.{ApiNav, ApiNavItem}
 import tech.mlsql.app_runtime.commons.{Dynamic, FormParams, Input}
-import tech.mlsql.app_runtime.db.service.BasicDBService
-import tech.mlsql.app_runtime.plugin.user.action.{ActionRequireResourceAccess, UserService}
+import tech.mlsql.app_runtime.plugin.user.action.{ActionRequireLogin, UserService}
 import tech.mlsql.common.utils.serder.json.JSONTool
 import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
 
 /**
  * 19/2/2020 WilliamZhu(allwefantasy@gmail.com)
  */
-class CreateAPINav extends ActionRequireResourceAccess {
+class CreateAPINav extends ActionRequireLogin {
   override def _run(params: Map[String, String]): String = {
     val title = params(CreateAPINav.Params.TITLE.name)
     val userId = getUser(params).get.id
@@ -37,11 +36,6 @@ class CreateAPINav extends ActionRequireResourceAccess {
 object CreateAPINav {
 
   object Params {
-    val USER_ID = Input("userId", "")
-    val USER_NAME = Input(UserService.Config.USER_NAME, "")
-    val LOGIN_TOKEN = Input(UserService.Config.LOGIN_TOKEN, "")
-    val ADMIN_TOKEN = Input(BasicDBService.adminToken, "")
-
     val TITLE = Input("title", "")
   }
 
@@ -73,18 +67,18 @@ object CreateAPINavItem {
 
   object Params {
 
-    val USER_ID = Input("userId", "")
+    val USER_NAME = Input(UserService.Config.USER_NAME, "")
 
     val NAV_API_ID = Dynamic(
       name = "apiNavId",
       subTpe = "Select",
-      depends = List(Params.USER_ID.name),
+      depends = List(Params.USER_NAME.name),
       valueProviderName = ChooseAPINav.action)
 
     val ACTION = Dynamic(
       name = "_action",
       subTpe = "Select",
-      depends = List(Params.USER_ID.name),
+      depends = List(Params.USER_NAME.name),
       valueProviderName = ListActionsForForm.action)
 
     val TITLE = Input("title", "")
