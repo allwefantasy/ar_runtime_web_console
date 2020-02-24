@@ -1,4 +1,5 @@
 import {BACKEND_URL,AccessToken} from './RestConst'
+import { GlobalParamNames } from '../Dicts'
 
 export class RestResponse {
     constructor(status,content){
@@ -19,6 +20,15 @@ export  class Backend {
 
     async request(action, params,method="GET") {
         method = method.toUpperCase();
+        const userName = sessionStorage.getItem(GlobalParamNames.USER_NAME)
+        const loginToken = sessionStorage.getItem(GlobalParamNames.LOGIN_TOKEN)
+        if(userName){
+           params[GlobalParamNames.USER_NAME] = userName
+        }
+
+        if(loginToken){
+            params[GlobalParamNames.LOGIN_TOKEN] = loginToken
+        }
 
         let formBody = [];
         for (let property in params) {

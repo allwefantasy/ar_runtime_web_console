@@ -4,6 +4,7 @@ import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx
 import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx._
 import tech.mlsql.app_runtime.ar_runtime_web_console.quill_model.{ScriptFile, ScriptUserRw}
 import tech.mlsql.app_runtime.commons._
+import tech.mlsql.app_runtime.plugin.user.action.{ActionRequireResourceAccess, UserService}
 import tech.mlsql.common.utils.serder.json.JSONTool
 import tech.mlsql.serviceframework.platform.action.CustomAction
 import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
@@ -12,10 +13,11 @@ import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
 /**
  * 15/2/2020 WilliamZhu(allwefantasy@gmail.com)
  */
-class CreateScriptFileAction extends ActionWithHelp {
+class CreateScriptFileAction extends ActionRequireResourceAccess {
   override def _run(params: Map[String, String]): String = {
 
-    val userId = params(CreateScriptFileAction.Params.USER_ID.name).toInt
+    val userId = getUser(params).get.id
+    
     val parentId = params.getOrElse(CreateScriptFileAction.Params.PARENT_ID.name, "-1").toInt
     val isDir = params(CreateScriptFileAction.Params.IS_DIR.name).toInt
 
@@ -65,6 +67,7 @@ object CreateScriptFileAction {
 
   object Params {
     val USER_ID = Input("userId", "")
+    val LOGIN_TOKEN = Input(UserService.Config.LOGIN_TOKEN, "")
 
     val PARENT_ID = Dynamic(
       name = "parentId",

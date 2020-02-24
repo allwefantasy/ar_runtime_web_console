@@ -6,6 +6,7 @@ import RemoteAction from '../service/RemoteAction'
 import TableView from './api_form/TableView'
 import { BaseComp } from './BaseReactComp/BaseComp';
 import Warning from './api_form/Warning';
+import { GlobalParamNames } from '../service/Dicts';
 
 
 export default class APIView extends BaseComp {
@@ -32,6 +33,12 @@ export default class APIView extends BaseComp {
         evt.preventDefault()
         const proxy = new ActionProxy()
         const params = this.form.forms
+        //clean empty param
+        Object.keys(params).forEach(key=>{
+            if(!params[key]) {
+                delete params[key]
+            }            
+        })
         const res = await proxy.backend.request(this.action, params)
         const errorView = this.errorView
         if(res.status !== 200){        
@@ -39,6 +46,10 @@ export default class APIView extends BaseComp {
         }        
         if (res.status ===200 && this.view) {            
             try {
+                if(this.action === "userLogin"){
+                    sessionStorage.setItem(GlobalParamNames.LOGIN_TOKEN,res.content[0]["token"])
+                    sessionStorage.setItem(GlobalParamNames.USER_NAME,params[GlobalParamNames.USER_NAME])
+                }
                 this.view.load(res.content)
             } catch (ex) {
                 errorView.warn("Data can not display in table",res.content+"")
