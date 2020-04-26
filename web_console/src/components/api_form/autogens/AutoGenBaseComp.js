@@ -33,7 +33,7 @@ export class AutoGenBaseComp extends BaseComp {
           const proxy = new ActionProxy()
           const params = {}
           this.dependencies.forEach(item=>params[item]=this.forms[item])          
-          const resp = await proxy.backend.request(this.action,params)
+          const resp = await proxy.backend.request(this.action,params,"POST")
           if(resp.status === 200){
             this.setState({values:resp.content})
           }else {
