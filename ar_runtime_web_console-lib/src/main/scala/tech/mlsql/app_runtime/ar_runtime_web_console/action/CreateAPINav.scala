@@ -3,9 +3,9 @@ package tech.mlsql.app_runtime.ar_runtime_web_console.action
 import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx
 import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx._
 import tech.mlsql.app_runtime.ar_runtime_web_console.quill_model.{ApiNav, ApiNavItem}
-import tech.mlsql.app_runtime.commons.{Dynamic, FormParams, Input}
-import tech.mlsql.app_runtime.plugin.user.action.{ActionRequireLogin, UserService}
+import tech.mlsql.app_runtime.user.action.{ActionRequireLogin, UserService}
 import tech.mlsql.common.utils.serder.json.JSONTool
+import tech.mlsql.serviceframework.platform.form.{Dynamic, FormParams, Input}
 import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
 
 /**

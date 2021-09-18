@@ -3,7 +3,7 @@ package tech.mlsql.app_runtime.ar_runtime_web_console.service
 import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx
 import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx._
 import tech.mlsql.app_runtime.ar_runtime_web_console.quill_model
-import tech.mlsql.app_runtime.plugin.user.action.{UserQuery, UserService, UserSystemActionProxy}
+import tech.mlsql.app_runtime.user.action.{UserQuery, UserService, UserSystemActionProxy}
 import tech.mlsql.common.utils.serder.json.JSONTool
 
 import scala.collection.mutable.ArrayBuffer

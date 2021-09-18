@@ -3,10 +3,10 @@ package tech.mlsql.app_runtime.ar_runtime_web_console.action
 import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx
 import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx._
 import tech.mlsql.app_runtime.ar_runtime_web_console.quill_model.{ScriptFile, ScriptUserRw}
-import tech.mlsql.app_runtime.commons._
-import tech.mlsql.app_runtime.plugin.user.action.{ActionRequireLogin, ActionRequireResourceAccess, UserService}
+import tech.mlsql.app_runtime.user.action.{ActionRequireLogin, ActionRequireResourceAccess, UserService}
 import tech.mlsql.common.utils.serder.json.JSONTool
 import tech.mlsql.serviceframework.platform.action.CustomAction
+import tech.mlsql.serviceframework.platform.form._
 import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
 
 

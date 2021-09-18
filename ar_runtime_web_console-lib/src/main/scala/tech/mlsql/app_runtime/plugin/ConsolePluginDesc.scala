@@ -2,9 +2,12 @@ package tech.mlsql.app_runtime.plugin
 
 import tech.mlsql.app_runtime.ar_runtime_web_console.action._
 import tech.mlsql.app_runtime.ar_runtime_web_console.app.ArRuntimeWebConsoleApp
-import tech.mlsql.serviceframework.platform._
+import tech.mlsql.serviceframework.platform.{Plugin, PluginItem}
 
-class PluginDesc extends Plugin {
+/**
+ * 18/9/2021 WilliamZhu(allwefantasy@gmail.com)
+ */
+class ConsolePluginDesc extends Plugin{
   override def entries: List[PluginItem] = {
     List(
       ArRuntimeWebConsoleApp.plugin,
@@ -20,4 +23,5 @@ class PluginDesc extends Plugin {
       ListActionsForForm.plugin
     )
   }
+
 }

@@ -9,3 +9,8 @@ release
 .sfcli/
 build/scala*
 build/zinc*
+
+.project
+.settings/
+ar_runtime_web_console-bin/.settings/
+ar_runtime_web_console-lib/.settings/

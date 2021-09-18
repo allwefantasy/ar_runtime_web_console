@@ -1,7 +1,7 @@
 package tech.mlsql.app_runtime.ar_runtime_web_console.action
 
-import tech.mlsql.app_runtime.commons.{FormParams, KV}
 import tech.mlsql.common.utils.serder.json.JSONTool
+import tech.mlsql.serviceframework.platform.form.{FormParams, KV}
 import tech.mlsql.serviceframework.platform.{ActionItem, AppRuntimeStore, PluginItem, PluginType}
 
 /**

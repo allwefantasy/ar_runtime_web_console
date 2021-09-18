@@ -1,6 +1,6 @@
 package tech.mlsql.app_runtime.ar_runtime_web_console.action
 
-import tech.mlsql.app_runtime.commons.Input
+import tech.mlsql.serviceframework.platform.form.Input
 import tech.mlsql.common.utils.serder.json.JSONTool
 import tech.mlsql.serviceframework.platform.action.{ActionContext, CustomAction}
 
