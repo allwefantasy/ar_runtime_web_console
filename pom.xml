@@ -7,7 +7,7 @@
     <groupId>tech.mlsql.serviceframework.baseweb</groupId>
     <artifactId>ar_runtime_web_console_2.11</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
     <modules>
         <module>ar_runtime_web_console-lib</module>
         <module>ar_runtime_web_console-bin</module>
@@ -22,6 +22,39 @@
         <app_runtime_with_db.version>1.0.1</app_runtime_with_db.version>
         <user-system.version>1.0.1</user-system.version>
     </properties>
+
+
+    <name>web-console</name>
+    <url>https://github.com/allwefantasy/ar_runtime_web_console</url>
+    <description>
+        web plugin for web-platform
+    </description>
+    <licenses>
+        <license>
+            <name>Apache 2.0 License</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>allwefantasy</id>
+            <name>ZhuHaiLin</name>
+            <email>allwefantasy@gmail.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <connection>
+            scm:git:git@github.com:allwefantasy/ar_runtime_web_console.git
+        </connection>
+        <developerConnection>
+            scm:git:git@github.com:allwefantasy/ar_runtime_web_console.git
+        </developerConnection>
+        <url>https://github.com/allwefantasy/ar_runtime_web_console</url>
+    </scm>
+    <issueManagement>
+        <url>https://github.com/allwefantasy/ar_runtime_web_console/issues</url>
+    </issueManagement>
 
     <profiles>
         <profile>
