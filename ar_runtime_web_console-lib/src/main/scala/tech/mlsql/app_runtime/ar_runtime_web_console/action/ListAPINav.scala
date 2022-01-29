@@ -11,7 +11,7 @@ import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
 /**
  * 19/2/2020 WilliamZhu(allwefantasy@gmail.com)
  */
-class ListAPINav extends ActionRequireLogin {
+class ListAPINav extends ActionRequireLogin with ActionInfo{
   override def _run(params: Map[String, String]): String = {
     val userId = getUser(params).get.id
     val navs = ctx.run(ctx.query[ApiNav].filter(_.userId == lift(userId)))
@@ -35,7 +35,7 @@ object ListAPINav {
 }
 
 // this class is for form
-class ChooseAPINav extends ActionWithHelp {
+class ChooseAPINav extends ActionWithHelp with ActionInfo{
   override def _run(params: Map[String, String]): String = {
     val res = new ListAPINav().run(params)
     val items = JSONTool.parseJson[List[ApiNav]](res)

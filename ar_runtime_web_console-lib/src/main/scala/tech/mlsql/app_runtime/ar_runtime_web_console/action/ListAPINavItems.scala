@@ -11,7 +11,7 @@ import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
 /**
  * 19/2/2020 WilliamZhu(allwefantasy@gmail.com)
  */
-class ListAPINavItems extends ActionRequireLogin {
+class ListAPINavItems extends ActionRequireLogin with ActionInfo{
   override def _run(params: Map[String, String]): String = {
     val items = ctx.run(ctx.query[ApiNavItem].filter(_.apiNavId == lift(params(ListAPINavItems.Params.NAV_API_ID.name).toInt)))
     JSONTool.toJsonStr(items)

@@ -11,7 +11,7 @@ import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
 /**
  * 19/2/2020 WilliamZhu(allwefantasy@gmail.com)
  */
-class CreateAPINav extends ActionRequireLogin {
+class CreateAPINav extends ActionRequireLogin with ActionInfo{
   override def _run(params: Map[String, String]): String = {
     val title = params(CreateAPINav.Params.TITLE.name)
     val userId = getUser(params).get.id
@@ -45,7 +45,7 @@ object CreateAPINav {
     classOf[CreateAPINav].getName, PluginType.action, None)
 }
 
-class CreateAPINavItem extends ActionWithHelp {
+class CreateAPINavItem extends ActionWithHelp with ActionInfo{
   override def _run(params: Map[String, String]): String = {
 
     val apiNavItemId = ctx.run(ctx.query[ApiNavItem].insert(

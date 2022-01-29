@@ -1,0 +1,24 @@
+.cards_title {
+    display: flex;
+    margin: 20px 20px;
+    border-bottom-color: #000c17;
+    border-bottom-width: 2px;
+    border-bottom-style: groove;
+}
+
+.cards_title_text {
+    font-size: 30px;
+}
+
+.cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 20px 30px;
+    justify-content: center;
+}
+
+.card {
+    width: 300px;
+    margin: 50px 50px;
+}

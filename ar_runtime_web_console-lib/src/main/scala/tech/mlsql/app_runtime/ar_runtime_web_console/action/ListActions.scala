@@ -1,15 +1,34 @@
 package tech.mlsql.app_runtime.ar_runtime_web_console.action
 
 import tech.mlsql.common.utils.serder.json.JSONTool
+import tech.mlsql.serviceframework.platform.action.attribute.{GroupAttribute, ModuleAttribute, OptionsAttribute}
 import tech.mlsql.serviceframework.platform.form.{FormParams, KV}
-import tech.mlsql.serviceframework.platform.{ActionItem, AppRuntimeStore, PluginItem, PluginType}
+import tech.mlsql.serviceframework.platform.{AppRuntimeStore, PluginItem, PluginType}
 
 /**
  * 18/2/2020 WilliamZhu(allwefantasy@gmail.com)
  */
 class ListActions extends ActionWithHelp {
   override def _run(params: Map[String, String]): String = {
-    JSONTool.toJsonStr(AppRuntimeStore.store.getActions().map(_.copy(loader = null)))
+    val actions = AppRuntimeStore.store.getActions().map { action =>
+      val instance = Class.forName(action.className).newInstance()
+      var item = ActionItem(action.name, groupName = "", moduleName = "", options = Map())
+
+      if (instance.isInstanceOf[GroupAttribute]) {
+        item = item.copy(groupName = instance.asInstanceOf[GroupAttribute].groupName())
+      }
+
+      if (instance.isInstanceOf[ModuleAttribute]) {
+        item = item.copy(moduleName = instance.asInstanceOf[ModuleAttribute].moduleName())
+      }
+
+      if (instance.isInstanceOf[OptionsAttribute]) {
+        item = item.copy(options = instance.asInstanceOf[OptionsAttribute].options())
+      }
+      item
+
+    }
+    JSONTool.toJsonStr(actions)
   }
 
   override def _help(): String = {
@@ -17,6 +36,8 @@ class ListActions extends ActionWithHelp {
     JSONTool.toJsonStr(items)
   }
 }
+
+case class ActionItem(name: String, groupName: String, moduleName: String, options: Map[String, String])
 
 object ListActions {
 
