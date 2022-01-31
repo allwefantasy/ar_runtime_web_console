@@ -7,7 +7,7 @@ import tech.mlsql.serviceframework.platform.{Plugin, PluginItem}
 /**
  * 18/9/2021 WilliamZhu(allwefantasy@gmail.com)
  */
-class ConsolePluginDesc extends Plugin{
+class ConsolePluginDesc extends Plugin {
   override def entries: List[PluginItem] = {
     List(
       ArRuntimeWebConsoleApp.plugin,
@@ -20,7 +20,8 @@ class ConsolePluginDesc extends Plugin{
       ListAPINav.plugin,
       ListAPINavItems.plugin,
       ChooseAPINav.plugin,
-      ListActionsForForm.plugin
+      ListActionsForForm.plugin,
+      ActionExits.plugin
     )
   }
 
