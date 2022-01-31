@@ -3,6 +3,7 @@ import {Steps, Button, message, List, notification, Card, Col, Row} from 'antd';
 import { ActionProxy } from "../service/ActionProxy";
 import RemoteAction from "../service/RemoteAction"
 import APIView from '../components/APIView';
+import "./APINav.css"
 
 const Step = Steps.Step;
 
@@ -34,7 +35,7 @@ export default class APINav extends React.Component {
                 return {
                     title: item.title,
                     content: ()=>{
-                    return <Card title={item.title} style={{width:"600px"}} bordered={true}>
+                    return <Card title={item.title} bordered={true}>
                     <APIView router={this.router} key={index}  action={item.action}></APIView>        
                 </Card>}
                 }
@@ -62,7 +63,7 @@ export default class APINav extends React.Component {
             return <div>No Items Available</div>
         }    
         return (
-            <div>
+            <div className="api_nav">
                 <div className="steps-action" style={{marginBottom: "30px"}}>
                     {
                         current < this.state.steps.length - 1
@@ -81,9 +82,11 @@ export default class APINav extends React.Component {
                         )
                     }
                 </div>
-                <Steps current={current}>
-                    {this.state.steps.map(item => <Step key={item.title} title={item.title}/>)}
-                </Steps>
+                <div className={"steps-nav"}>
+                    <Steps current={current}>
+                        {this.state.steps.map(item => <Step key={item.title} title={item.title}/>)}
+                    </Steps>
+                </div>
                 <div className="steps-content" style={{"margin-top": "30px"}}>
                      {this.state.steps[current].content()}
                 </div>
