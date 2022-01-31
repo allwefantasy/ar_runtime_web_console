@@ -40,7 +40,7 @@ function SimpleCard(props) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button onClick={handleClick} size="big">View</Button>
+                <Button onClick={handleClick} size="large">View</Button>
             </CardActions>
         </Card>
     );

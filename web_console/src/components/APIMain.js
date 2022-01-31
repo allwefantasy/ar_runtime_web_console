@@ -29,7 +29,7 @@ export default class APIView extends BaseComp {
     }));
 
     async handleListItemClick(evt, action) {
-        this.router.toPage2(action)
+        this.router.toAction(action)
     }
 
     async goToNav(evt) {
@@ -46,7 +46,6 @@ export default class APIView extends BaseComp {
         let groups = {}
 
         cards.forEach(item => {
-            console.log(item)
             const comp = <div className={"card"}><APICard card={item}
                                                           handleClick={event => myself.handleListItemClick(event, item.name)}></APICard>
             </div>
@@ -76,7 +75,6 @@ export default class APIView extends BaseComp {
         const classes = this.useStyles()
         return (
             <div className={classes.root}>
-                <APIBar></APIBar>
                 {this.state.items}
             </div>
         );

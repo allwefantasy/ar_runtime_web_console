@@ -4,53 +4,55 @@ import APIMain from '../components/APIMain';
 import RemoteAction from '../service/RemoteAction';
 import {APINavSwitcher} from '../router/APINavSwitcher'
 import {BaseRouter} from './BaseRouter'
+import APIBar from "../components/api_main/APIBar";
 
-export class APIViewSwitcher extends BaseRouter{
-    constructor(props){
-        super(props)        
-        this.state={
-            page1:true,
-            page2:false,
-            nav:false,
-            current_action:RemoteAction.LIST_ACTIONS 
-        }      
+export class APIViewSwitcher extends BaseRouter {
+    constructor(props) {
+        super(props)
+        this.state = {
+            page1: false,
+            page2: false,
+            nav: true,
+            current_action: RemoteAction.LIST_ACTIONS
+        }
         this.toPage1 = this.toPage1.bind(this)
-        this.toPage2 = this.toPage2.bind(this)
+        this.toAction = this.toAction.bind(this)
         this.toNav = this.toNav.bind(this)
         this.popPage = this.popPage.bind(this)
 
-        this.pages = [{func:this.toPage1,params:[]}]
+        this.pages = [{func: this.toPage1, params: []}]
     }
 
-   toPage1 = ()=>{
-      this.pages.push({func:this.toPage1,params:[]})
-      this.setState({page1:true,page2:false,nav:false,})
-   } 
+    toPage1 = () => {
+        this.pages.push({func: this.toPage1, params: []})
+        this.setState({page1: true, page2: false, nav: false,})
+    }
 
-   toPage2 = (action)=>{
-      this.pages.push({func:this.toPage2,params:[action]})      
-      this.setState({page1:false,page2:true,nav:false,current_action:action})
-   }  
-   
-   toNav = ()=>{
-      this.pages.push({func:this.toNav,params:[]})      
-      this.setState({page1:false,page2:false,nav:true})
-   }
+    toAction = (action) => {
+        this.pages.push({func: this.toAction, params: [action]})
+        this.setState({page1: false, page2: true, nav: false, current_action: action})
+    }
 
-   render(){      
-       if(this.state.page1){
-        return (<div>
-           <APIMain router={this} action={RemoteAction.LIST_ACTIONS}></APIMain>
-        </div>)
-       }     
-     else if(this.state.page2) {
-        return (<div>
-           <APIView  router={this} action={this.state.current_action}></APIView>        
-        </div>)
-     }else if(this.state.nav){        
-      return (<div>
-         <APINavSwitcher router={this} app={this.app}></APINavSwitcher>        
-      </div>)
-     }
-   }
+    toNav = () => {
+        this.pages.push({func: this.toNav, params: []})
+        this.setState({page1: false, page2: false, nav: true})
+    }
+
+    render() {
+        return <div><APIBar router={this}></APIBar>
+            {this.state.page1 && <div>
+                <APIMain router={this} action={RemoteAction.LIST_ACTIONS}></APIMain>
+            </div>
+            }
+            {this.state.page2 && <div>
+                <APIView router={this} action={this.state.current_action}></APIView>
+            </div>
+            }
+            {this.state.nav && <div>
+                <APINavSwitcher router={this} app={this.app}></APINavSwitcher>
+            </div>
+            }
+        </div>
+
+    }
 }
