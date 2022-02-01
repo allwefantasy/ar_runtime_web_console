@@ -13,7 +13,8 @@ export class APIViewSwitcher extends BaseRouter {
             page1: false,
             page2: false,
             nav: true,
-            current_action: RemoteAction.LIST_ACTIONS
+            current_action: RemoteAction.LIST_ACTIONS,
+            refresh: 0
         }
         this.toPage1 = this.toPage1.bind(this)
         this.toAction = this.toAction.bind(this)
@@ -38,6 +39,10 @@ export class APIViewSwitcher extends BaseRouter {
         this.setState({page1: false, page2: false, nav: true})
     }
 
+    refreshBar = () => {
+        this.setState({refresh: this.state.refresh + 1})
+    }
+
     render() {
         return <div><APIBar router={this}></APIBar>
             {this.state.page1 && <div>
@@ -45,7 +50,7 @@ export class APIViewSwitcher extends BaseRouter {
             </div>
             }
             {this.state.page2 && <div>
-                <APIView router={this} action={this.state.current_action}></APIView>
+                <APIView router={this} key={this.state.current_action} action={this.state.current_action}></APIView>
             </div>
             }
             {this.state.nav && <div>

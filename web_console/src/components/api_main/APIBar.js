@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import {useToken, getUserName} from '../../user/user'
+import {useToken, getUserName, logout, getUserInfo} from '../../user/user'
 
 const styles = {
     root: {
@@ -24,11 +24,14 @@ const styles = {
 
 function ButtonAppBar(props) {
     const {classes, router} = props;
-    const {token} = useToken()
+    const token = getUserInfo().token
 
     const loginOrReg = () => {
         if (token) {
-            return <div><Button color="inherit">Logout</Button>{getUserName()}</div>
+            return <div><Button onClick={async () => {
+                await logout()
+                router.toNav()
+            }} color="inherit">Logout</Button>{getUserName()}</div>
         }
         return <div><Button onClick={() => {
             router.toAction("userLogin")
@@ -49,7 +52,7 @@ function ButtonAppBar(props) {
                     <Typography>
                         <Button onClick={() => {
                             router.toNav()
-                        }} className={classes.menuButton} color="inherit"  aria-label="Menu">API Chain</Button>
+                        }} className={classes.menuButton} color="inherit" aria-label="Menu">API Chain</Button>
                     </Typography>
                     <Typography>
                         <Button onClick={() => {

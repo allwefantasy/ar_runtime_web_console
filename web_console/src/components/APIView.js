@@ -13,14 +13,13 @@ export default class APIView extends BaseComp {
     constructor(props) {
         super(props)
         this.router = props.router
-        this.action = props.action
         if (props.submit) {
             this.submit = props.submit
         } else {
             this.submit = this.submit.bind(this)
         }
 
-        this.state = {}
+        this.state = {action: props.action}
     }
 
     async submit(evt) {
@@ -33,15 +32,16 @@ export default class APIView extends BaseComp {
                 delete params[key]
             }
         })
-        const res = await proxy.backend.request(this.action, params)
+        const res = await proxy.backend.request(this.state.action, params)
         const errorView = this.errorView
         if (res.status !== 200) {
             errorView.warn("Response error", res.content)
         }
         if (res.status === 200 && this.view) {
             try {
-                if (this.action === "userLogin") {
+                if (this.state.action === "userLogin") {
                     setUserInfo(res.content[0])
+                    this.router.refreshBar()
                 }
                 this.view.load(res.content)
             } catch (ex) {
@@ -54,7 +54,7 @@ export default class APIView extends BaseComp {
         const proxy = new ActionProxy()
 
         const builder = new FormBuilder(proxy, this.router)
-        this.form = await builder.build(this.action, this.submit)
+        this.form = await builder.build(this.state.action, this.submit)
 
         await this.setStateSync({form: this.form.build()})
 
