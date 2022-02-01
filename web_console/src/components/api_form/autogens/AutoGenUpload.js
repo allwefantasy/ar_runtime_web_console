@@ -5,6 +5,8 @@ import {fromEvent} from 'file-selector';
 import request from "superagent";
 import {BACKEND_URL} from "../../../service/backend/RestConst";
 import './AutoGenUpload.css'
+import {getUserInfo} from "../../../user/user";
+import {GlobalParamNames} from "../../../service/Dicts";
 
 const baseStyle = {
     width: 200,
@@ -46,7 +48,27 @@ export class AutoGenUpload extends AutoGenBaseComp {
 
     onDrop = (files) => {
         this.setState({files})
-        let newurl = BACKEND_URL + "?" + "action=" + this.state.action
+        const params = {}
+
+        const {token, userName} = getUserInfo()
+
+        if (userName) {
+            params[GlobalParamNames.USER_NAME] = userName
+        }
+
+        if (token) {
+            params[GlobalParamNames.LOGIN_TOKEN] = token
+        }
+
+        let formBody = [];
+        for (let property in params) {
+            let encodedKey = encodeURIComponent(property);
+            let encodedValue = encodeURIComponent(params[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+
+        let newurl = BACKEND_URL + "?" + "action=" + this.state.action + "&" + formBody.join("&")
+
         const req = request.post(newurl);
 
         files.forEach(file => {
