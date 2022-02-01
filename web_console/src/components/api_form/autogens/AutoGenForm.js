@@ -9,6 +9,7 @@ import Container from '@material-ui/core/Container';
 import Warning from '../Warning'
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { DynamicAddInput } from '../DynamicAddInput';
+import './AutoGenForm.css'
 
 export class AutoGenForm {
 

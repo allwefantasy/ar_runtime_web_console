@@ -21,7 +21,7 @@ export class FormBuilder {
         const json = res.content
         
         const form = new AutoGenForm({action:action,submit:submit,router:this.router})  
-        json.map(item=>{        
+        json.map(item=>{
             const autogen = FormElementMapping.mapping[item.tpe](item,form)            
             form.push(autogen)            
         })                
