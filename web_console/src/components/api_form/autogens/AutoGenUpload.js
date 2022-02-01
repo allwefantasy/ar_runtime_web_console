@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone'
 import {fromEvent} from 'file-selector';
 import request from "superagent";
 import {BACKEND_URL} from "../../../service/backend/RestConst";
+import './AutoGenUpload.css'
 
 const baseStyle = {
     width: 200,
@@ -24,9 +25,6 @@ const rejectStyle = {
     backgroundColor: '#eee'
 };
 
-const fileListStyle = {
-    display: 'flex'
-}
 
 export class AutoGenUpload extends AutoGenBaseComp {
     /**
@@ -80,7 +78,7 @@ export class AutoGenUpload extends AutoGenBaseComp {
         ))
 
         return (
-            <section style={fileListStyle}>
+            <section className={"fileListStyle"}>
                 <div>
                     <Dropzone onDrop={this.onDrop}
                               getDataTransferItems={evt => fromEvent(evt)}
