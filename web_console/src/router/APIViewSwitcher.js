@@ -68,7 +68,7 @@ export class APIViewSwitcher extends BaseRouter {
             </div>
             }
             {this.state.page2 && <div>
-                <APIView router={this} key={this.state.current_action} action={this.state.current_action}></APIView>
+                <APIView router={this} key={this.state.current_action} extra_params={this.state.extra_params} action={this.state.current_action}></APIView>
             </div>
             }
             {this.state.nav && <div>

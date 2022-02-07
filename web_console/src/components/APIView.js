@@ -4,7 +4,6 @@ import {FormBuilder} from './api_form/Form'
 import TableView from './api_form/TableView'
 import {BaseComp} from './BaseReactComp/BaseComp';
 import Warning from './api_form/Warning';
-import {GlobalParamNames} from '../service/Dicts';
 import './APIView.css'
 import {setUserInfo} from "../user/user"
 
@@ -19,7 +18,7 @@ export default class APIView extends BaseComp {
             this.submit = this.submit.bind(this)
         }
 
-        this.state = {action: props.action}
+        this.state = {action: props.action, extra_params: props.extra_params || {}}
     }
 
     async submit(evt) {
@@ -53,7 +52,7 @@ export default class APIView extends BaseComp {
     async componentDidMount() {
         const proxy = new ActionProxy()
 
-        const builder = new FormBuilder(proxy, this.router)
+        const builder = new FormBuilder(proxy, this.router,this.state.extra_params)
         this.form = await builder.build(this.state.action, this.submit)
 
         await this.setStateSync({form: this.form.build()})
