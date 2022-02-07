@@ -5,16 +5,34 @@ import RemoteAction from '../service/RemoteAction';
 import {APINavSwitcher} from '../router/APINavSwitcher'
 import {BaseRouter} from './BaseRouter'
 import APIBar from "../components/api_main/APIBar";
+import queryString from 'query-string';
 
 export class APIViewSwitcher extends BaseRouter {
     constructor(props) {
         super(props)
-        this.state = {
+        const extra_params = queryString.parse(window.location.href.split("?")[1])
+
+        const current_action = extra_params && extra_params["action"] || RemoteAction.LIST_ACTIONS
+
+        let current_page = {
             page1: false,
             page2: false,
-            nav: true,
-            current_action: RemoteAction.LIST_ACTIONS,
-            refresh: 0
+            nav: true
+        }
+
+        if (extra_params) {
+            current_page = {
+                page1: false,
+                page2: true,
+                nav: false
+            }
+        }
+
+        this.state = {
+            ...current_page,
+            current_action,
+            refresh: 0,
+            extra_params
         }
         this.toPage1 = this.toPage1.bind(this)
         this.toAction = this.toAction.bind(this)
