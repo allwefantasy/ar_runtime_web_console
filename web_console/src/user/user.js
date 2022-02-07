@@ -30,11 +30,9 @@ function getUserInfo() {
 }
 
 async function logout() {
+    localStorage.removeItem(GlobalParamNames.LOGIN_TOKEN)
     const proxy = new ActionProxy()
-    const res = await proxy.post("userLogout",{})
-    if(res.status === 200){
-        localStorage.removeItem(GlobalParamNames.LOGIN_TOKEN)
-    }
+    await proxy.post("userLogout",{})
 }
 
 function getUserName() {
