@@ -24,6 +24,13 @@ export default class APIView extends BaseComp {
     async submit(evt) {
         evt.preventDefault()
         const proxy = new ActionProxy()
+        let extra_params = this.state.extra_params || {}
+        delete extra_params.action
+
+        let new_extra_params = {}
+        Object.keys(extra_params).forEach((key,index)=>{
+            new_extra_params["extra."+key] = extra_params[key]
+        })
         const params = this.form.forms
         //clean empty param
         Object.keys(params).forEach(key => {
@@ -31,7 +38,7 @@ export default class APIView extends BaseComp {
                 delete params[key]
             }
         })
-        const res = await proxy.backend.request(this.state.action, params)
+        const res = await proxy.backend.request(this.state.action, {...new_extra_params,...params})
         const errorView = this.errorView
         if (res.status !== 200) {
             errorView.warn("Response error", res.content)
@@ -53,7 +60,14 @@ export default class APIView extends BaseComp {
         const proxy = new ActionProxy()
 
         const builder = new FormBuilder(proxy, this.router,this.state.extra_params)
-        this.form = await builder.build(this.state.action, this.submit)
+        const [status,content] = await builder.build(this.state.action, this.submit)
+
+        if(status !== 200) {
+            this.errorView.warn("Response error", content)
+            return
+        }
+
+        this.form = content
 
         await this.setStateSync({form: this.form.build()})
 

@@ -12,7 +12,7 @@ export class APIViewSwitcher extends BaseRouter {
         super(props)
         const extra_params = queryString.parse(window.location.href.split("?")[1])
 
-        const current_action = extra_params && extra_params["action"] || RemoteAction.LIST_ACTIONS
+        const current_action = (extra_params && extra_params["action"]) || RemoteAction.LIST_ACTIONS
 
         let current_page = {
             page1: false,
@@ -20,7 +20,7 @@ export class APIViewSwitcher extends BaseRouter {
             nav: true
         }
 
-        if (extra_params) {
+        if (extra_params && extra_params["action"]) {
             current_page = {
                 page1: false,
                 page2: true,
