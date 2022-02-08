@@ -12,35 +12,35 @@ export class FormElementMapping {
     static mapping = {
         "Input": (row, form, dependencies, action) => {
             const input = <AutoGenInput ref={item => form.pushInstance(item)} form={form} name={row.name} values={[]}
-                                        dependencies={dependencies} action={action}></AutoGenInput>
+                                        dependencies={dependencies} action={action} data={row}></AutoGenInput>
             return input
         },
         "Select": (row, form, dependencies, action) => {
             const select = <AutoGenSelect ref={item => form.pushInstance(item)} form={form} name={row.name}
                                           values={row.values} dependencies={dependencies}
-                                          action={action}></AutoGenSelect>
+                                          action={action} data={row}></AutoGenSelect>
             return select
         },
         "CheckBox": (row, form, dependencies, action) => {
             const checkbox = <AutoGenCheckBox ref={item => form.pushInstance(item)} form={form} name={row.name}
                                               values={row.values} dependencies={dependencies}
-                                              action={action}></AutoGenCheckBox>
+                                              action={action} data={row}></AutoGenCheckBox>
             return checkbox
         },
         "TreeSelect": (row, form, dependencies, action) => {
             const tree = <AutoGenTreeView2 ref={item => form.pushInstance(item)} form={form} name={row.name}
                                            json={JSON.parse(row.json)[0].values || []} values={[]}
-                                           dependencies={dependencies} action={action}></AutoGenTreeView2>    //(form,row.name,JSON.parse(row.json)[0].value)
+                                           dependencies={dependencies} action={action} data={row}></AutoGenTreeView2>    //(form,row.name,JSON.parse(row.json)[0].value)
             return tree
         },
         "Editor": (row, form, dependencies, action) => {
             const tree = <AutoGenEditor ref={item => form.pushInstance(item)} form={form} name={row.name} values={row.values}
-                                        dependencies={dependencies} action={action}></AutoGenEditor>
+                                        dependencies={dependencies} action={action} data={row}></AutoGenEditor>
             return tree
         },
         "Upload": (row, form, dependencies, action) => {
             const upload = <AutoGenUpload ref={item => form.pushInstance(item)} form={form} name={row.name}
-                                          dependencies={dependencies} action={row.valueProviderName}></AutoGenUpload>
+                                          dependencies={dependencies} action={row.valueProviderName} data={row}></AutoGenUpload>
             return upload
         },
         "Dynamic": (row, form) => {
