@@ -7,7 +7,7 @@
     <groupId>tech.mlsql.serviceframework.baseweb</groupId>
     <artifactId>ar_runtime_web_console_2.11</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.4</version>
+    <version>1.0.4.1</version>
     <modules>
         <module>ar_runtime_web_console-lib</module>
         <module>ar_runtime_web_console-bin</module>

@@ -27,7 +27,7 @@ export class AutoGenEditor extends AutoGenBaseComp{
       render(){        
         return (
           <div>
-            <div>{this.name}</div>
+            <div>{this.state.data.options.label || this.name}</div>
           <Resizable defaultSize={{height: "500px"}} onResize={()=>{this.editorRef.editor.resize();}}>
           <AceEditor
           ref={item=>this.editorRef=item}

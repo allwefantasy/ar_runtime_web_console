@@ -59,7 +59,13 @@ export default class APIView extends BaseComp {
     async componentDidMount() {
         const proxy = new ActionProxy()
 
-        const builder = new FormBuilder(proxy, this.router,this.state.extra_params)
+        let extra_params = this.state.extra_params || {}
+        let new_extra_params = {}
+        Object.keys(extra_params).forEach((key,index)=>{
+            new_extra_params["extra."+key] = extra_params[key]
+        })
+
+        const builder = new FormBuilder(proxy, this.router,new_extra_params)
         const [status,content] = await builder.build(this.state.action, this.submit)
 
         if(status !== 200) {

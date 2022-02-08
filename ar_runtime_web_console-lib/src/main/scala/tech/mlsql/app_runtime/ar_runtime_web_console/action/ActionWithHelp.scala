@@ -33,7 +33,7 @@ abstract class ActionWithHelp extends CustomAction {
 object ActionWithHelp {
 
   object Params {
-    val HELP = Input("__HELP__", "")
+    val HELP = Input("__HELP__", "",options = Map())
   }
 
 }

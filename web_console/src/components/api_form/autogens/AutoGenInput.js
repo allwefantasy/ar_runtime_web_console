@@ -26,7 +26,7 @@ export class AutoGenInput extends AutoGenBaseComp{
             fullWidth                        
             autoFocus  
             onChange={this.handleChange}          
-            form={this.form} name={this.name} label={this.state.data.label || this.name} />
+            form={this.form} name={this.name} label={this.state.data.options.label || this.name} />
                       
         );
       }
