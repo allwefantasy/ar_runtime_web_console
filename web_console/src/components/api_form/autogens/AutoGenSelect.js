@@ -28,7 +28,7 @@ export class AutoGenSelect extends AutoGenBaseComp{
                 id="standard-select-currency"
                 name={this.name}
                 select
-                label={this.name}
+                label={this.state.data.label || this.name}
                 onChange={this.handleChange}
             >
                 {this.state.values.map(option => (
