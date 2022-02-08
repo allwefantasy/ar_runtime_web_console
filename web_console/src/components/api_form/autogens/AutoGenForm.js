@@ -84,7 +84,7 @@ export class AutoGenForm {
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         {
-                            this.title ? this.title + "/" : ""
+                            (this.title && this.title !== this.action) ? this.title + "/" : ""
                         }{this.action}
                     </Typography>
                     <form className={classes.form} noValidate>
