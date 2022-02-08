@@ -28,11 +28,18 @@ export class FormBuilder {
         /**@type {[]} */
         const json = res.content
 
+        let title = action
+
         const form = new AutoGenForm({action: action, submit: submit, router: this.router})
-        json.map(item => {
-            const autogen = FormElementMapping.mapping[item.tpe](item, form)
-            form.push(autogen)
+        json.forEach(item => {
+            if(item.tpe !== "Title") {
+                const autogen = FormElementMapping.mapping[item.tpe](item, form)
+                form.push(autogen)
+            }else {
+                title = item.value?.replace(/^["'](.+(?=["']$))["']$/, '$1')
+            }
         })
+        form.setTitle(title)
         return [200,form]
     }
 
