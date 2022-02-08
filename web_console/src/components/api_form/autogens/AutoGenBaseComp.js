@@ -11,8 +11,8 @@ export class AutoGenBaseComp extends BaseComp {
     constructor(props){
         super(props)
         this.form = props.form
-        this.name = props.name                        
-        this.state = {values:props.values}
+        this.name = props.name
+        this.state = {values:props.values,data:props.data}
 
         this.forms = this.form.forms                        
         this.monitors = []
