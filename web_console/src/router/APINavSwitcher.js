@@ -40,8 +40,8 @@ export class APINavSwitcher extends BaseRouter{
        if(this.state.page1){    
         return (<div>
            <APIView ref={item=>this.apiView=item} 
-           action={RemoteAction.ChooseAPINav} 
-           router={this}  submit={this.submit}></APIView>
+           action={RemoteAction.ChoosePublicNav}
+           router={this}  submit={this.submit} ></APIView>
         </div>)
        }     
      else {        

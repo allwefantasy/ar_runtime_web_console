@@ -6,5 +6,6 @@ export default class RemoteAction{
     static LIST_APINavItems = "listAPINavItems"
     static LIST_APINav = "listAPINav"
     static ChooseAPINav = "chooseAPINav"
+    static ChoosePublicNav = "/public/nav/list"
 
 }

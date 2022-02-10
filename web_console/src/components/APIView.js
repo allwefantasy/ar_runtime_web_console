@@ -28,8 +28,8 @@ export default class APIView extends BaseComp {
         delete extra_params.action
 
         let new_extra_params = {}
-        Object.keys(extra_params).forEach((key,index)=>{
-            new_extra_params["extra."+key] = extra_params[key]
+        Object.keys(extra_params).forEach((key, index) => {
+            new_extra_params["extra." + key] = extra_params[key]
         })
         const params = this.form.forms
         //clean empty param
@@ -38,7 +38,7 @@ export default class APIView extends BaseComp {
                 delete params[key]
             }
         })
-        const res = await proxy.backend.request(this.state.action, {...new_extra_params,...params})
+        const res = await proxy.backend.request(this.state.action, {...new_extra_params, ...params})
         const errorView = this.errorView
         if (res.status !== 200) {
             errorView.warn("Response error", res.content)
@@ -61,14 +61,14 @@ export default class APIView extends BaseComp {
 
         let extra_params = this.state.extra_params || {}
         let new_extra_params = {}
-        Object.keys(extra_params).forEach((key,index)=>{
-            new_extra_params["extra."+key] = extra_params[key]
+        Object.keys(extra_params).forEach((key, index) => {
+            new_extra_params["extra." + key] = extra_params[key]
         })
 
-        const builder = new FormBuilder(proxy, this.router,new_extra_params)
-        const [status,content] = await builder.build(this.state.action, this.submit)
+        const builder = new FormBuilder(proxy, this.router, new_extra_params)
+        const [status, content] = await builder.build(this.state.action, this.submit)
 
-        if(status !== 200) {
+        if (status !== 200) {
             this.errorView.warn("Response error", content)
             return
         }
@@ -84,9 +84,14 @@ export default class APIView extends BaseComp {
             inputAlonesMap[item.name] = item
         })
         inputWithDepends.forEach(item => {
-            item.dependencies.forEach(dep => {
-                inputAlonesMap[dep].addMonitor(item)
-            })
+            if (item.dependencies.length > 0) {
+                item.dependencies.forEach(dep => {
+                    inputAlonesMap[dep].addMonitor(item)
+                })
+            } else {
+                item.reload(undefined)
+            }
+
         })
     }
 

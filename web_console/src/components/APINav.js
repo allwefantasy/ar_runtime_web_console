@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Steps, Button, message, List, notification, Card, Col, Row} from 'antd';
-import { ActionProxy } from "../service/ActionProxy";
+import {ActionProxy} from "../service/ActionProxy";
 import RemoteAction from "../service/RemoteAction"
 import APIView from '../components/APIView';
 import "./APINav.css"
@@ -13,10 +13,10 @@ export default class APINav extends React.Component {
         this.router = props.router
         this.state = {
             current: 0,
-            steps:[],
-            apiNavId:props.apiNavId
+            steps: [],
+            apiNavId: props.apiNavId
         }
-        
+
     }
 
     openNotificationWithIcon = (type, message, description) => {
@@ -28,21 +28,22 @@ export default class APINav extends React.Component {
 
 
     async componentDidMount() {
-        const proxy = new ActionProxy()        
-        const resp = await proxy.get(RemoteAction.LIST_APINavItems,{apiNavId:this.state.apiNavId})
-        if(resp.status === 200){            
-            const items = resp.content.map((item,index)=>{                               
+        const proxy = new ActionProxy()
+        const resp = await proxy.get(RemoteAction.LIST_APINavItems, {apiNavId: this.state.apiNavId, openType: "public"})
+        if (resp.status === 200) {
+            const items = resp.content.map((item, index) => {
                 return {
                     title: item.title,
-                    content: ()=>{
-                    return <Card title={item.title} bordered={true}>
-                    <APIView router={this.router} key={index}  action={item.action}></APIView>        
-                </Card>}
+                    content: () => {
+                        return <Card title={item.title} bordered={true}>
+                            <APIView router={this.router} key={index} action={item.action}></APIView>
+                        </Card>
+                    }
                 }
-            })            
-            this.setState({steps:items}) 
+            })
+            this.setState({steps: items})
         }
-        
+
     }
 
     next() {
@@ -58,10 +59,10 @@ export default class APINav extends React.Component {
     }
 
     render() {
-        const {current} = this.state;    
-        if(this.state.steps.length==0){
+        const {current} = this.state;
+        if (this.state.steps.length == 0) {
             return <div>No Items Available</div>
-        }    
+        }
         return (
             <div className="api_nav">
                 <div className="steps-action" style={{marginBottom: "30px"}}>
@@ -88,7 +89,7 @@ export default class APINav extends React.Component {
                     </Steps>
                 </div>
                 <div className="steps-content" style={{"margin-top": "30px"}}>
-                     {this.state.steps[current].content()}
+                    {this.state.steps[current].content()}
                 </div>
 
             </div>

@@ -21,7 +21,8 @@ class ConsolePluginDesc extends Plugin {
       ListAPINavItems.plugin,
       ChooseAPINav.plugin,
       ListActionsForForm.plugin,
-      ActionExits.plugin
+      ActionExits.plugin,
+      PublicNav.plugin
       //      TestAction.plugin,
       //      TestUploadAction.plugin
     )
