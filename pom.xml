@@ -7,7 +7,7 @@
     <groupId>tech.mlsql.serviceframework.baseweb</groupId>
     <artifactId>ar_runtime_web_console_2.11</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.4.1</version>
+    <version>1.0.4.2</version>
     <modules>
         <module>ar_runtime_web_console-lib</module>
         <module>ar_runtime_web_console-bin</module>
@@ -20,7 +20,7 @@
         <scala.jline.version>2.11.0-M3</scala.jline.version>
         <web-platform-version>0.2.2</web-platform-version>
         <app_runtime_with_db.version>1.0.4</app_runtime_with_db.version>
-        <user-system.version>1.0.4</user-system.version>
+        <user-system.version>1.0.5</user-system.version>
     </properties>
 
 
