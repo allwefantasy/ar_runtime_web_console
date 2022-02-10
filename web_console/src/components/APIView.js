@@ -80,7 +80,7 @@ export default class APIView extends BaseComp {
         //configure dependency of components
         const inputWithDepends = this.form.instances.filter(item => item.dependencies)
         const inputAlonesMap = {}
-        this.form.instances.filter(item => !item.dependencies).forEach(item => {
+        this.form.instances.forEach(item => {
             inputAlonesMap[item.name] = item
         })
         inputWithDepends.forEach(item => {
