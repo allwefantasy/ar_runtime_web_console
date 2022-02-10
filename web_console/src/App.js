@@ -3,17 +3,17 @@ import 'antd/dist/antd.css';
 import './App.css';
 import {APIViewSwitcher} from './router/APIViewSwitcher';
 import {HashRouter as Router, Route, Switch} from 'react-router-dom'
-import APITest from "./components/APITest";
+import CommonHome from "./components/CommonHome";
 
 function App() {
     return (
         <div className="App">
             <Router>
                 <Switch>
-                    <Route path="/test">
-                        <APITest name={"wow"}/>
+                    <Route path="/api"><APIViewSwitcher app={this}></APIViewSwitcher></Route>
+                    <Route path="/">
+                        <CommonHome name={"wow"}/>
                     </Route>
-                    <Route path="/"><APIViewSwitcher app={this}></APIViewSwitcher></Route>
                 </Switch>
             </Router>
         </div>
