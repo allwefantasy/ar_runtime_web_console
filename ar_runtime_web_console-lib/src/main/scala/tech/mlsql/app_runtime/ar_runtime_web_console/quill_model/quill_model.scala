@@ -14,6 +14,8 @@ case class ScriptUserRw(id: Int, scriptFileId: Int,
 
 }
 
+case class HomeConfig(id: Int, teamId: Int, k: String, v: String)
+
 case class ApiNavItem(id: Int, title: String, action: String, apiNavId: Int, step: Int)
 
 case class ApiNav(id: Int, title: String, userId: Int)

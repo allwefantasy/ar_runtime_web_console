@@ -4,6 +4,7 @@ import './App.css';
 import {APIViewSwitcher} from './router/APIViewSwitcher';
 import {HashRouter as Router, Route, Switch} from 'react-router-dom'
 import CommonHome from "./components/CommonHome";
+import APIView from "./components/APIView";
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     <Route path="/">
                         <CommonHome name={"wow"}/>
                     </Route>
+
                 </Switch>
             </Router>
         </div>
