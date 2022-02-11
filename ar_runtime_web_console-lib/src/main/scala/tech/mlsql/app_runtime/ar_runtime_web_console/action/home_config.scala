@@ -5,7 +5,7 @@ import tech.mlsql.app_runtime.ar_runtime_web_console.PluginDB.ctx._
 import tech.mlsql.app_runtime.ar_runtime_web_console.quill_model.HomeConfig
 import tech.mlsql.app_runtime.user.action.{ActionHelper, ActionRequireLogin, ListTeamForFormAction}
 import tech.mlsql.common.utils.serder.json.JSONTool
-import tech.mlsql.serviceframework.platform.PluginItem
+import tech.mlsql.serviceframework.platform.{PluginItem, PluginType}
 import tech.mlsql.serviceframework.platform.form.{Dynamic, FormParams, Input}
 
 
