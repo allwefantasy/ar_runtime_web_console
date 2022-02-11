@@ -6,7 +6,7 @@ development:
     mysql:
       host: 127.0.0.1
       port: 3306
-      database: basic_app_runtime
+      database: byzer_extension_market
       username: root
       password: mlsql
       initialSize: 8

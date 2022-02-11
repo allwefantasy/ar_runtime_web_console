@@ -17,7 +17,8 @@ class PluginDesc extends Plugin {
       ListAPINav.plugin,
       ListAPINavItems.plugin,
       ChooseAPINav.plugin,
-      ListActionsForForm.plugin
+      ListActionsForForm.plugin,
+      AddHomeConfigAction.plugin
     )
   }
 }

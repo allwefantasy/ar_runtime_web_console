@@ -2,7 +2,7 @@ import * as React from "react";
 import {useHistory} from "react-router-dom";
 import {getUserInfo, useToken} from "../user/user";
 import CommonHomeHeader from "./common_home/CommonHomeHeader";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {ActionProxy} from "../service/ActionProxy";
 
 export interface PMenu {
@@ -20,51 +20,51 @@ export interface PSKU {
     mainPage?: string
 }
 
-export type TestProps = {
+export interface CommonHomeProps {
     websiteName: string
     menus: PMenu[],
     searchTitle: string,
-    skusUrl: string
-    operates: string[]
+    skusUrl: string,
+    mainName: string,
+    mainAction: string,
+    options: { [key: string]: string }[]
 }
 
 
-export default function CommonHome(props: TestProps) {
-
+export function CommonHome(props: CommonHomeProps) {
     const [searchValue, setSearchValue] = useState<string>("")
     const [skus, setSkus] = useState<PSKU[]>([])
 
-    const getSkus = async () => {
+    const fetchSkus = useCallback(async () => {
+        if (!props.skusUrl) {
+            return
+        }
         const proxy = new ActionProxy()
         const res = await proxy.get(props.skusUrl, {keyword: searchValue})
-        const items = res.content as PSKU[]
-        setSkus(items)
-        setSkus([{
-            name: "Shell command",
-            label: "Shell command",
-            desc: "shell command",
-            userName: "jack",
-            downloads: "100k",
-            image: "/images/byzer-lang.png",
-            categories: []
-        }])
-    }
+        console.log(res)
+        if (res.status == 200) {
+            const items = res.content as PSKU[]
+            setSkus(items)
+        }
+    }, [props, searchValue])
 
     useEffect(() => {
-        getSkus()
-    }, [])
+        fetchSkus()
+    }, [props])
 
     const search = () => {
         if (searchValue === "") {
             return
         }
-        getSkus()
+        fetchSkus()
     }
 
     const generateSKUs = () => {
         return skus.map((item) => {
-            return <div className="border bg-gray-100 rounded-md w-30 p-2">
-                <button>
+            return <div key={item.name} className="border bg-gray-100 rounded-md w-24 p-2 mx-2">
+                <button onClick={() => {
+
+                }}>
                     <div className="flex flex-row justify-center my-2">
                         <img className="w-12 h-12" src={item.image}></img>
                     </div>
@@ -83,9 +83,9 @@ export default function CommonHome(props: TestProps) {
     }
 
     return <div className="flex flex-col w-full rounded-none">
-        <CommonHomeHeader/>
+        <CommonHomeHeader {...props}/>
         <div className="w-full">
-            <div className="text-xl my-1 my-2">Extensions for the Byzer-lang</div>
+            <div className="text-xl my-1 my-2">{props.searchTitle}</div>
             <form className="flex flex-row items-center justify-center h-6">
                 <div>
                     <input onChange={(v) => {
@@ -122,7 +122,7 @@ export default function CommonHome(props: TestProps) {
                 </div>
             </form>
         </div>
-        <div className="flex flex-row my-2 mx-2 w-full">
+        <div className="flex flex-row my-2 mx-2 w-full ">
             {generateSKUs()}
         </div>
     </div>

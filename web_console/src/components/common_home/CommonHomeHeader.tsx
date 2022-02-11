@@ -1,10 +1,11 @@
 import * as React from "react";
 import {useHistory} from "react-router-dom";
-import { getUserName, logout, useToken} from "../../user/user";
+import {getUserName, logout, useToken} from "../../user/user";
+import {CommonHomeProps} from "../CommonHome";
 
-export default function CommonHomeHeader() {
+export default function CommonHomeHeader(props: CommonHomeProps) {
     const history = useHistory()
-    const {token,setToken} = useToken()
+    const {token, setToken} = useToken()
     const loginOrReg = () => {
         if (token) {
             return <div className="flex-none my-auto w-24 text-xxs">
@@ -25,7 +26,7 @@ export default function CommonHomeHeader() {
 
     return <div className="w-full">
         <div className="w-full h-8 bg-black flex flex-row">
-            <div className="flex-none text-white my-auto ml-12">Byzer-lang | Market</div>
+            <div className="flex-none text-white my-auto ml-12">{props.websiteName}</div>
             <div className="flex-1"></div>
             {loginOrReg()}
         </div>
@@ -49,7 +50,10 @@ export default function CommonHomeHeader() {
 
             </div>
             <div className="my-auto h-full text-indigo-600 text-xxs py-0 px-0 hover:bg-pink-700 hover:text-white ">
-                <button className="py-1 px-2">Publish extension</button>
+                <button onClick={() => {
+                    history.push(props.mainAction || "/")
+                }} className="py-1 px-2">{props.mainName || "Publish extension"}
+                </button>
             </div>
         </div>
     </div>
