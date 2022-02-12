@@ -2,8 +2,8 @@ import * as React from "react";
 import {Steps, Button, message, List, notification, Card, Col, Row} from 'antd';
 import {ActionProxy} from "../service/ActionProxy";
 import RemoteAction from "../service/RemoteAction"
-import APIView from '../components/APIView';
 import "./APINav.css"
+import APIViewer from "./APIViewer";
 
 const Step = Steps.Step;
 
@@ -36,7 +36,7 @@ export default class APINav extends React.Component {
                     title: item.title,
                     content: () => {
                         return <Card title={item.title} bordered={true}>
-                            <APIView router={this.router} key={index} action={item.action}></APIView>
+                            <APIViewer router={this.router} key={index} action={item.action}></APIViewer>
                         </Card>
                     }
                 }

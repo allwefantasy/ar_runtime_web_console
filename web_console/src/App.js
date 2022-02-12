@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import 'antd/dist/antd.css';
 import './App.css';
-import {APIViewSwitcher} from './router/APIViewSwitcher';
 import {HashRouter as Router, Route, Switch} from 'react-router-dom'
 import {CommonHome} from "./components/CommonHome";
 import {ActionProxy} from "./service/ActionProxy";

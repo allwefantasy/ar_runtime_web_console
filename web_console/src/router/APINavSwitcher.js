@@ -1,8 +1,8 @@
 import React from 'react';
-import APIView from '../components/APIView';
 import APINav from '../components/APINav';
 import RemoteAction from '../service/RemoteAction';
 import {BaseRouter} from './BaseRouter'
+import APIViewer from "../components/APIViewer";
 
 export class APINavSwitcher extends BaseRouter{
     constructor(props){
@@ -39,9 +39,9 @@ export class APINavSwitcher extends BaseRouter{
    render(){      
        if(this.state.page1){    
         return (<div>
-           <APIView ref={item=>this.apiView=item} 
+           <APIViewer ref={item=>this.apiView=item}
            action={RemoteAction.ChoosePublicNav}
-           router={this}  submit={this.submit} ></APIView>
+           router={this}  submit={this.submit} ></APIViewer>
         </div>)
        }     
      else {        

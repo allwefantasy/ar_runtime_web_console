@@ -46,8 +46,4 @@ function SimpleCard(props) {
     );
 }
 
-SimpleCard.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
 export default withStyles(styles)(SimpleCard);

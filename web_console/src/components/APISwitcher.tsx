@@ -1,10 +1,10 @@
 import React from 'react';
 import {Route, useHistory, Switch} from "react-router-dom";
 import APIBar from "./api_main/APIBar";
-import APIMain from "./APIMain";
-import RemoteAction from "../service/RemoteAction";
+import './APIMain.css'
 import APIViewer from "./APIViewer";
 import {APINavSwitcher} from "../router/APINavSwitcher";
+import APIList from "./APIList";
 
 
 export default function APISwitcher() {
@@ -13,7 +13,7 @@ export default function APISwitcher() {
         <APIBar></APIBar>
         <Switch>
             <Route path="/api/list">
-                <APIMain router={history} action={RemoteAction.LIST_ACTIONS}></APIMain>
+                <APIList/>
             </Route>
             <Route path="/api/view">
                 <APIViewer/>
