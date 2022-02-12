@@ -38,7 +38,8 @@ export class AutoGenUpload extends AutoGenBaseComp {
         this.state = {
             files: [],
             msg: "",
-            action: props.action
+            action: props.action,
+            values: props.values, data: props.data
         }
     }
 
@@ -92,6 +93,7 @@ export class AutoGenUpload extends AutoGenBaseComp {
     }
 
     render() {
+        console.log(this.state)
 
         const files = this.state.files.map(f => (
             <li key={f.name}>
@@ -102,6 +104,7 @@ export class AutoGenUpload extends AutoGenBaseComp {
         return (
             <section className={"fileListStyle"}>
                 <div>
+                    <div className="my-2 text-lg">{this.state.data?.options.label || this.state.data?.name}</div>
                     <Dropzone onDrop={this.onDrop}
                               getDataTransferItems={evt => fromEvent(evt)}
                     >

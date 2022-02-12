@@ -10,6 +10,7 @@ export interface PMenu {
 }
 
 export interface PSKU {
+    id: string,
     name: string,
     label: string,
     desc: string,
@@ -32,6 +33,7 @@ export interface CommonHomeProps {
 
 
 export function CommonHome(props: CommonHomeProps) {
+    const history = useHistory()
     const [searchValue, setSearchValue] = useState<string>("")
     const [skus, setSkus] = useState<PSKU[]>([])
 
@@ -40,8 +42,7 @@ export function CommonHome(props: CommonHomeProps) {
             return
         }
         const proxy = new ActionProxy()
-        const res = await proxy.get(props.skusUrl, {keyword: searchValue})
-        console.log(res)
+        const res = await proxy.get(props.skusUrl, {keyword: searchValue, pageSize: 100})
         if (res.status == 200) {
             const items = res.content as PSKU[]
             setSkus(items)
@@ -61,15 +62,18 @@ export function CommonHome(props: CommonHomeProps) {
 
     const generateSKUs = () => {
         return skus.map((item) => {
-            return <div key={item.name} className="border bg-gray-100 rounded-md w-24 p-2 mx-2">
+            return <div key={item.name} className="border bg-gray-100 rounded-md w-32 p-2 mx-2">
                 <button onClick={() => {
-
+                    history.push(`/api?action=${encodeURIComponent("/sku/get")}&id=${item.id}`, {})
                 }}>
                     <div className="flex flex-row justify-center my-2">
                         <img className="w-12 h-12" src={item.image}></img>
                     </div>
                     <div className="text-center w-full">
-                        <span className="text-xs font-bold">{item.label}</span>
+                        <span className="text-xl font-bold">{item.label}</span>
+                    </div>
+                    <div className="text-center w-full">
+                        <span className="text-xxs">{item.desc}</span>
                     </div>
                     <div className="flex flex-row w-full">
                         <div className="text-gray-400  text-xxs">{item.userName}</div>
