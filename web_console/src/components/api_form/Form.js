@@ -22,7 +22,7 @@ export class FormBuilder {
         const res = await this.proxy.post(action, {"__HELP__": "true", ...this.extra_params})
 
         if (res.status !== 200) {
-            return [res.status,res.content]
+            return [res.status, res.content]
         }
 
         /**@type {[]} */
@@ -32,15 +32,15 @@ export class FormBuilder {
 
         const form = new AutoGenForm({action: action, submit: submit, router: this.router})
         json.forEach(item => {
-            if(item.tpe !== "Title") {
+            if (item.tpe !== "Title") {
                 const autogen = FormElementMapping.mapping[item.tpe](item, form)
                 form.push(autogen)
-            }else {
+            } else {
                 title = item.value?.replace(/^["'](.+(?=["']$))["']$/, '$1')
             }
         })
         form.setTitle(title)
-        return [200,form]
+        return [200, form]
     }
 
 }

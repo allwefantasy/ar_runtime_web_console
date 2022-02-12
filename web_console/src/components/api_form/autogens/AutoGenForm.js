@@ -58,7 +58,7 @@ export class AutoGenForm {
 
     back = (evt) => {
         evt.preventDefault()
-        this.router.popPage()
+        this.router.goBack()
     }
 
     addParams = (evt) => {

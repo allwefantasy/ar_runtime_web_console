@@ -37,7 +37,6 @@ export default function APIViewer(props: APIViewerProps) {
                 new_extra_params["extra." + key] = extra_params[key] as string
             })
             delete new_extra_params["extra.action"]
-            console.log(autoGenFormInstanceRef.current)
             const params = autoGenFormInstanceRef.current?.forms
             //clean empty param
             Object.keys(params).forEach(key => {
@@ -80,7 +79,6 @@ export default function APIViewer(props: APIViewerProps) {
                 errorView.current?.warn("Response error", formInstance)
                 return
             }
-            console.log(formInstance)
             setAutoGenFormInstance(formInstance)
             autoGenFormInstanceRef.current = formInstance
 
