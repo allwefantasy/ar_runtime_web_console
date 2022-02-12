@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {useToken, getUserName, logout, getUserInfo} from '../../user/user'
+import {useHistory} from "react-router-dom";
 
 const styles = {
     root: {
@@ -23,21 +24,22 @@ const styles = {
 };
 
 function ButtonAppBar(props) {
-    const {classes, router} = props;
+    const {classes} = props
+    const history = useHistory()
     const token = getUserInfo().token
 
     const loginOrReg = () => {
         if (token) {
             return <div><Button onClick={async () => {
                 await logout()
-                router.toNav()
+                history.push("/api")
             }} color="inherit">Logout</Button>{getUserName()}</div>
         }
         return <div><Button onClick={() => {
-            router.toAction("userLogin")
+            history.push("/api/view?action=userLogin")
         }} color="inherit">Login</Button>
             <Button onClick={() => {
-                router.toAction("userReg")
+                history.push("/api/view?action=userReg")
             }} color="inherit">Register</Button>
         </div>
     }
@@ -47,16 +49,16 @@ function ButtonAppBar(props) {
             <AppBar position="static">
                 <Toolbar>
                     <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <Typography>
                         <Button onClick={() => {
-                            router.toNav()
+                            history.push("/api")
                         }} className={classes.menuButton} color="inherit" aria-label="Menu">API Chain</Button>
                     </Typography>
                     <Typography>
                         <Button onClick={() => {
-                            router.toPage1()
+                            history.push("/api/list")
                         }} className={classes.menuButton} color="inherit" aria-label="Menu">API List</Button>
                     </Typography>
 

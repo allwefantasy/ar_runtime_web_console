@@ -17,7 +17,6 @@ export default class APIView extends BaseComp {
         } else {
             this.submit = this.submit.bind(this)
         }
-
         this.state = {action: props.action || props.match.params.action, extra_params: props.extra_params || {}}
     }
 

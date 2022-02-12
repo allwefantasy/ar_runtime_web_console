@@ -5,6 +5,7 @@ import {APIViewSwitcher} from './router/APIViewSwitcher';
 import {HashRouter as Router, Route, Switch} from 'react-router-dom'
 import {CommonHome} from "./components/CommonHome";
 import {ActionProxy} from "./service/ActionProxy";
+import APISwitcher from "./components/APISwitcher";
 
 
 function App() {
@@ -23,16 +24,18 @@ function App() {
 
     return (
         <div className="App">
-            <Router>
+            {!webSiteInfo && <div>Loading....</div>}
+            {webSiteInfo && <Router>
                 <Switch>
-                    <Route path="/api"><APIViewSwitcher app={this}></APIViewSwitcher></Route>
+                    <Route path="/api"><APISwitcher/></Route>
                     <Route path="/">
                         <CommonHome {...webSiteInfo}/>
                     </Route>
 
                 </Switch>
-            </Router>
+            </Router>}
         </div>
+
     );
 }
 

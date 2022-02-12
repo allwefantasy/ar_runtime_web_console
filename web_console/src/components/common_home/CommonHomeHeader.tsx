@@ -1,16 +1,18 @@
 import * as React from "react";
 import {useHistory} from "react-router-dom";
-import {getUserName, logout, useToken} from "../../user/user";
+import {getUserInfo, getUserName, logout} from "../../user/user";
 import {CommonHomeProps} from "../CommonHome";
+import {useState} from "react";
 
 export default function CommonHomeHeader(props: CommonHomeProps) {
     const history = useHistory()
-    const {token, setToken} = useToken()
+    const [token, setToken] = useState<string>(getUserInfo().token)
     const loginOrReg = () => {
         if (token) {
             return <div className="flex-none my-auto w-24 text-xxs">
                 <button className="text-white" onClick={async () => {
                     await logout()
+                    setToken("")
                     history.push("/home")
                 }}>Logout
                 </button>
@@ -18,7 +20,7 @@ export default function CommonHomeHeader(props: CommonHomeProps) {
         }
         return <div className="flex-none my-auto w-16 text-xxs">
             <button onClick={() => {
-                history.push("/api?action=userLogin")
+                history.push("/api/view?action=userLogin")
             }} className="text-white">Sign in
             </button>
         </div>

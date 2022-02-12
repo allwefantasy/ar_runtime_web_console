@@ -22,7 +22,7 @@ function setUserInfo(userInfo) {
 
 function getUserInfo() {
     const userInfoStr = localStorage.getItem(GlobalParamNames.LOGIN_TOKEN)
-    if(userInfoStr === "" || userInfoStr == null) {
+    if (userInfoStr === "" || userInfoStr == null) {
         return {}
     }
     const userInfo = JSON.parse(userInfoStr)
@@ -30,13 +30,17 @@ function getUserInfo() {
 }
 
 async function logout() {
-    localStorage.removeItem(GlobalParamNames.LOGIN_TOKEN)
-    const proxy = new ActionProxy()
-    await proxy.post("userLogout",{})
+    try {
+        const proxy = new ActionProxy()
+        await proxy.post("userLogout", {})
+    } finally {
+        localStorage.removeItem(GlobalParamNames.LOGIN_TOKEN)
+    }
+
 }
 
 function getUserName() {
     return getUserInfo().userName
 }
 
-export {useToken, getUserName, getUserInfo,setUserInfo,logout}
+export {useToken, getUserName, getUserInfo, setUserInfo, logout}
