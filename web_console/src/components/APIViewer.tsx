@@ -26,7 +26,6 @@ export default function APIViewer(props: APIViewerProps) {
 
     const action = (props.action || extra_params.action) as string
     const history = useHistory()
-
     const submit = useCallback(
         async (evt: Event) => {
             evt.preventDefault()
@@ -62,7 +61,7 @@ export default function APIViewer(props: APIViewerProps) {
                 }
             }
         }
-        , [autoGenForm,autoGenFormInstance])
+        , [action,autoGenForm,autoGenFormInstance])
 
     useEffect(() => {
         const func = async () => {

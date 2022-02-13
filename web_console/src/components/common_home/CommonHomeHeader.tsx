@@ -18,7 +18,7 @@ export default function CommonHomeHeader(props: CommonHomeProps) {
                 </button>
                 <span className="text-white mx-2">{getUserName()}</span></div>
         }
-        return <div className="flex-none my-auto w-16 text-xxs">
+        return <div className="flex-none my-auto w-32 text-xl">
             <button onClick={() => {
                 history.push("/api/view?action=userLogin")
             }} className="text-white">Sign in

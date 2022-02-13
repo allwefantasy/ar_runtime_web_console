@@ -24,7 +24,8 @@ const styles = {
 };
 
 function ButtonAppBar(props) {
-    const {classes} = props
+
+    const {classes,webSiteName} = props
     const history = useHistory()
     const token = getUserInfo().token
 
@@ -51,19 +52,21 @@ function ButtonAppBar(props) {
                     <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
                         <MenuIcon/>
                     </IconButton>
+
+                    <Typography>
+                        <Button onClick={() => {
+                            history.push("/")
+                        }} className={classes.menuButton} color="inherit" aria-label="Menu">Home</Button>
+                    </Typography>
+
                     <Typography>
                         <Button onClick={() => {
                             history.push("/api")
                         }} className={classes.menuButton} color="inherit" aria-label="Menu">API Chain</Button>
                     </Typography>
-                    <Typography>
-                        <Button onClick={() => {
-                            history.push("/api/list")
-                        }} className={classes.menuButton} color="inherit" aria-label="Menu">API List</Button>
-                    </Typography>
 
                     <Typography variant="h6" color="inherit" className={classes.grow}>
-                        APIs Master
+                        {webSiteName}
                     </Typography>
                     {
                         loginOrReg()

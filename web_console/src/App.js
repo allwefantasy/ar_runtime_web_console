@@ -26,7 +26,7 @@ function App() {
             {!webSiteInfo && <div>Loading....</div>}
             {webSiteInfo && <Router>
                 <Switch>
-                    <Route path="/api"><APISwitcher/></Route>
+                    <Route path="/api"><APISwitcher webSiteName={webSiteInfo.websiteName}/></Route>
                     <Route path="/">
                         <CommonHome {...webSiteInfo}/>
                     </Route>
