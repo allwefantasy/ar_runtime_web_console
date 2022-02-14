@@ -22,17 +22,23 @@ function App() {
     }, [])
 
     return (
-        <div className="App">
-            {!webSiteInfo && <div>Loading....</div>}
-            {webSiteInfo && <Router>
-                <Switch>
-                    <Route path="/api"><APISwitcher webSiteName={webSiteInfo.websiteName}/></Route>
-                    <Route path="/">
-                        <CommonHome {...webSiteInfo}/>
-                    </Route>
+        <div className="flex flex-col">
+            <div className="flex-grow-0">
+                {!webSiteInfo && <div>Loading....</div>}
+                {webSiteInfo && <Router>
+                    <Switch>
+                        <Route path="/api"><APISwitcher webSiteName={webSiteInfo.websiteName}/></Route>
+                        <Route path="/">
+                            <CommonHome {...webSiteInfo}/>
+                        </Route>
 
-                </Switch>
-            </Router>}
+                    </Switch>
+                </Router>}
+            </div>
+            <div className="flex-grow"></div>
+            {
+                webSiteInfo && <div className="flex-grow-0 h-12 text-center">{webSiteInfo.icp}</div>
+            }
         </div>
 
     );

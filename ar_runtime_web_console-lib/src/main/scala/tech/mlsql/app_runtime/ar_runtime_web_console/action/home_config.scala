@@ -40,6 +40,7 @@ class AddHomeConfigAction extends ActionRequireLogin {
     val skusUrl = params.getOrElse(AddHomeConfigAction.Params.SKU_URL.name,"/home/list")
     val mainAction = params.getOrElse(AddHomeConfigAction.Params.MAIN_ACTION.name,"")
     val mainName = params.getOrElse(AddHomeConfigAction.Params.MAIN_NAME.name,"")
+    val icp = params.getOrElse(AddHomeConfigAction.Params.ICP.name,"")
 
 
     var teamId = AddHomeConfigAction.PUBLIC_TEAM_ID
@@ -72,6 +73,7 @@ class AddHomeConfigAction extends ActionRequireLogin {
     upsert(AddHomeConfigAction.Params.SKU_URL.name, skusUrl)
     upsert(AddHomeConfigAction.Params.MAIN_ACTION.name, mainAction)
     upsert(AddHomeConfigAction.Params.MAIN_NAME.name, mainName)
+    upsert(AddHomeConfigAction.Params.ICP.name, icp)
 
     ActionHelper.msg("Success")
   }
@@ -96,6 +98,7 @@ object AddHomeConfigAction {
     val SKU_URL = Input("skusUrl", "")
     val MAIN_NAME = Input("mainName", "")
     val MAIN_ACTION = Input("mainAction", "")
+    val ICP = Input("icp", "")
 
   }
 

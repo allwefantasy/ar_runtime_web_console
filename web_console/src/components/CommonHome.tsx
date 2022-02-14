@@ -28,6 +28,7 @@ export interface CommonHomeProps {
     skusUrl: string,
     mainName: string,
     mainAction: string,
+    icp:string
     options: { [key: string]: string }[]
 }
 
