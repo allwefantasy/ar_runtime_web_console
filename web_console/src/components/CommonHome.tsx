@@ -90,7 +90,7 @@ export function CommonHome(props: CommonHomeProps) {
     return <div className="flex flex-col w-full rounded-none">
         <CommonHomeHeader {...props}/>
         <div className="w-full">
-            <div className="text-4xl my-1 my-2">{props.searchTitle}</div>
+            <div className="text-4xl my-1 my-2 text-center">{props.searchTitle}</div>
             <form className="flex flex-row items-center justify-center h-12">
                 <div>
                     <input onChange={(v) => {
