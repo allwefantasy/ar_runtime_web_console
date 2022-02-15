@@ -85,15 +85,16 @@ export class AutoGenUpload extends AutoGenBaseComp {
                     this.forms[this.name] = paths.join(",")
                     this.monitors.forEach(monitor => monitor.reload(this))
                     this.setState({msg: "total files:" + files.length + " are uploaded. "})
+                } else {
+                    this.setState({msg: res.text})
                 }
             } else {
-                this.setState({msg: err.toString() + "\n" + res.text + "\n  Sometimes this caused by your upload space is not enough or backend fails"})
+                this.setState({msg: err.toString() + "\n" + res.text})
             }
         })
     }
 
     render() {
-        console.log(this.state)
 
         const files = this.state.files.map(f => (
             <li key={f.name}>
@@ -108,7 +109,15 @@ export class AutoGenUpload extends AutoGenBaseComp {
                     <Dropzone onDrop={this.onDrop}
                               getDataTransferItems={evt => fromEvent(evt)}
                     >
-                        {({getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject, acceptedFiles, rejectedFiles}) => {
+                        {({
+                              getRootProps,
+                              getInputProps,
+                              isDragActive,
+                              isDragAccept,
+                              isDragReject,
+                              acceptedFiles,
+                              rejectedFiles
+                          }) => {
                             let styles = {...baseStyle}
                             styles = isDragActive ? {...styles, ...activeStyle} : styles
                             styles = isDragReject ? {...styles, ...rejectStyle} : styles
