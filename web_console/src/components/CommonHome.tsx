@@ -55,9 +55,6 @@ export function CommonHome(props: CommonHomeProps) {
     }, [props])
 
     const search = () => {
-        if (searchValue === "") {
-            return
-        }
         fetchSkus()
     }
 
