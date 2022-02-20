@@ -60,7 +60,7 @@ export function CommonHome(props: CommonHomeProps) {
 
     const generateSKUs = () => {
         return skus.map((item) => {
-            return <div key={item.name} className="border bg-gray-100 rounded-md w-56 p-2 mx-2">
+            return <div key={item.name} className="border bg-gray-100 rounded-md w-56 p-2 mx-2 my-2">
                 <button onClick={() => {
                     history.push(`/api/view?action=${encodeURIComponent("/sku/get")}&id=${item.id}`, {})
                 }}>
@@ -125,7 +125,7 @@ export function CommonHome(props: CommonHomeProps) {
                 </div>
             </form>
         </div>
-        <div className="flex flex-row my-12 mx-2 w-full ">
+        <div className="flex flex-row my-12 mx-2 w-full flex-wrap">
             {generateSKUs()}
         </div>
     </div>

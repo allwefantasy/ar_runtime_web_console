@@ -114,7 +114,7 @@ export default function APIViewer(props: APIViewerProps) {
     return <div className="my-6">
         <div><Warning ref={errorView}></Warning></div>
         <div className="my-6">{autoGenForm}</div>
-        <div className="my-4">
+        <div className="my-4 text-center mx-auto w-full">
             <ResultRender renderData={renderData}></ResultRender>
         </div>
     </div>
