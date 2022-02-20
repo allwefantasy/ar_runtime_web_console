@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.960ee840.css",
-    "main.js": "./static/js/main.cebe2fac.js",
+    "main.css": "./static/css/main.e23348ef.css",
+    "main.js": "./static/js/main.519ff328.js",
     "static/media/icons-20.eot": "./static/media/icons-20.cde033c5d3f24283f757.eot",
     "static/media/icons-20.woff": "./static/media/icons-20.1ef633d3a28d0986f63e.woff",
     "static/media/icons-20.ttf": "./static/media/icons-20.57b3e708b232fdcb64f9.ttf",
@@ -9,11 +9,11 @@
     "static/media/icons-16.woff": "./static/media/icons-16.1645f50fb7f7c109f64e.woff",
     "static/media/icons-16.ttf": "./static/media/icons-16.13933033991f62d6bb64.ttf",
     "index.html": "./index.html",
-    "main.960ee840.css.map": "./static/css/main.960ee840.css.map",
-    "main.cebe2fac.js.map": "./static/js/main.cebe2fac.js.map"
+    "main.e23348ef.css.map": "./static/css/main.e23348ef.css.map",
+    "main.519ff328.js.map": "./static/js/main.519ff328.js.map"
   },
   "entrypoints": [
-    "static/css/main.960ee840.css",
-    "static/js/main.cebe2fac.js"
+    "static/css/main.e23348ef.css",
+    "static/js/main.519ff328.js"
   ]
 }
