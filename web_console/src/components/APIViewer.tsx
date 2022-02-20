@@ -4,8 +4,8 @@ import {FormBuilder} from "./api_form/Form";
 import {useHistory, useLocation} from "react-router-dom";
 import queryString from "query-string";
 import Warning from "./api_form/Warning";
-import TableView from "./api_form/TableView";
 import {setUserInfo} from "../user/user";
+import {ResultRender} from "./BaseReactComp/ResultRender";
 
 type APIViewerProps = {
     action?: string
@@ -16,13 +16,14 @@ export default function APIViewer(props: APIViewerProps) {
     const location = useLocation()
     const extra_params = queryString.parse(location.search) || {}
     const errorView = useRef<any>()
-    const tableView = useRef<any>()
 
     const autoGenFormRef = useRef<any>()
     const autoGenFormInstanceRef = useRef<any>()
 
     const [autoGenForm, setAutoGenForm] = useState<any>()
     const [autoGenFormInstance, setAutoGenFormInstance] = useState<any>()
+
+    const [renderData, setRenderData] = useState<any>(undefined)
 
     const action = (props.action || extra_params.action) as string
     const history = useHistory()
@@ -47,13 +48,13 @@ export default function APIViewer(props: APIViewerProps) {
             if (res.status !== 200) {
                 errorView.current?.warn("Response error", res.content)
             }
-            if (res.status === 200 && tableView) {
+            if (res.status === 200 ) {
                 try {
                     if (action === "userLogin") {
                         setUserInfo(res.content[0])
                         history.push("/")
                     } else {
-                        tableView.current?.load(res.content)
+                        setRenderData(res.content)
                     }
 
                 } catch (ex) {
@@ -61,7 +62,7 @@ export default function APIViewer(props: APIViewerProps) {
                 }
             }
         }
-        , [action,autoGenForm,autoGenFormInstance])
+        , [action, autoGenForm, autoGenFormInstance])
 
     useEffect(() => {
         const func = async () => {
@@ -110,11 +111,11 @@ export default function APIViewer(props: APIViewerProps) {
 
     }, [props, action, location.search])
 
-    return <div className="api_box">
+    return <div className="my-6">
         <div><Warning ref={errorView}></Warning></div>
-        <div>{autoGenForm}</div>
-        <div style={{marginTop: "30px"}}>
-            <TableView ref={tableView}></TableView>
+        <div className="my-6">{autoGenForm}</div>
+        <div className="my-4">
+            <ResultRender renderData={renderData}></ResultRender>
         </div>
     </div>
 }
