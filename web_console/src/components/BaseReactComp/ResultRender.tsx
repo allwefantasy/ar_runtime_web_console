@@ -139,5 +139,6 @@ export function ResultRender({renderData}: ResultRenderProps) {
     if (data.mime === "image") {
         return <img src={`data:image/png;base64,${data.content}`}/>
     }
+
     return generateTable(data.content.schema.fields.map((item:{name:string})=>item.name), data.content.data)
 }
