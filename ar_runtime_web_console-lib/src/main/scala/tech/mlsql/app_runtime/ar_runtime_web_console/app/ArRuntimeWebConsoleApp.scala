@@ -2,6 +2,7 @@ package tech.mlsql.app_runtime.ar_runtime_web_console.app
 
 import net.csdn.ServiceFramwork
 import net.csdn.common.reflect.ReflectHelper
+import net.csdn.common.settings.Settings
 import net.csdn.modules.http.HttpServer
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.server.handler.{HandlerList, ResourceHandler}
@@ -19,13 +20,22 @@ class ArRuntimeWebConsoleApp extends CustomApp {
     val server = ReflectHelper.field(httpServer, "server").asInstanceOf[Server]
     val server_handler = server.getHandler.asInstanceOf[HandlerList]
 
+    val settings = ServiceFramwork.injector.getInstance(classOf[Settings])
+
     if (!ReflectHelper.field(server_handler, "_mutableWhenRunning").asInstanceOf[Boolean]) {
       ReflectHelper.field(server_handler, "_mutableWhenRunning", true)
     }
     val resource_handler = new ResourceHandler
     resource_handler.setDirectoriesListed(false)
-    val webDir = this.getClass().getClassLoader().getResource(PluginDB.plugin_name).toExternalForm()
-    resource_handler.setResourceBase(webDir);
+
+    val staticDir = settings.get("web.static.dir");
+    if (staticDir != null) {
+      resource_handler.setResourceBase(staticDir)
+    } else {
+      val webDir = this.getClass().getClassLoader().getResource(PluginDB.plugin_name).toExternalForm()
+      resource_handler.setResourceBase(webDir);
+    }
+
     val origin = server_handler.getHandlers.filterNot { item =>
       item.isInstanceOf[ResourceHandler] && item.asInstanceOf[ResourceHandler].getBaseResource.getName.split("/").last == PluginDB.plugin_name
     }
