@@ -9,7 +9,7 @@ function useToken() {
     }
     const [token, setToken] = useState(getToken)
     const saveToken = userInfo => {
-        localStorage.setItem(GlobalParamNames.LOGIN_TOKEN, JSON.stringify(userInfo))
+        sessionStorage.setItem(GlobalParamNames.LOGIN_TOKEN, JSON.stringify(userInfo))
         setToken(userInfo.token)
     }
 
@@ -17,11 +17,11 @@ function useToken() {
 }
 
 function setUserInfo(userInfo) {
-    localStorage.setItem(GlobalParamNames.LOGIN_TOKEN, JSON.stringify(userInfo))
+    sessionStorage.setItem(GlobalParamNames.LOGIN_TOKEN, JSON.stringify(userInfo))
 }
 
 function getUserInfo() {
-    const userInfoStr = localStorage.getItem(GlobalParamNames.LOGIN_TOKEN)
+    const userInfoStr = sessionStorage.getItem(GlobalParamNames.LOGIN_TOKEN)
     if (userInfoStr === "" || userInfoStr == null) {
         return {}
     }
@@ -34,7 +34,7 @@ async function logout() {
         const proxy = new ActionProxy()
         await proxy.post("userLogout", {})
     } finally {
-        localStorage.removeItem(GlobalParamNames.LOGIN_TOKEN)
+        sessionStorage.removeItem(GlobalParamNames.LOGIN_TOKEN)
     }
 
 }
