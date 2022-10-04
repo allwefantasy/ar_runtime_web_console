@@ -44,7 +44,7 @@ export default function APIViewer(props: APIViewerProps) {
                     delete params[key]
                 }
             })
-            const res = await proxy.backend.request(action, {...new_extra_params, ...params})
+            const res = await proxy.backend.request(action, {...new_extra_params, ...params},"POST")
             if (res.status !== 200) {
                 errorView.current?.warn("Response error", res.content)
             }
