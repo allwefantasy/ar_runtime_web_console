@@ -1,6 +1,5 @@
 import * as React from "react";
 import {useHistory} from "react-router-dom";
-import {getUserInfo, useToken} from "../user/user";
 import CommonHomeHeader from "./common_home/CommonHomeHeader";
 import {useCallback, useEffect, useState} from "react";
 import {ActionProxy} from "../service/ActionProxy";
