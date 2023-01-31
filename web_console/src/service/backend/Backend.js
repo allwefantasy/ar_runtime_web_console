@@ -63,7 +63,7 @@ export class Backend {
             if (!response.ok) {
                 const error = await response.text()
 
-                if (response.status === 400 && error === "[{\"msg\":\"Login or AdminToken is required\"}]") {
+                if (response.status === 401) {
                     localStorage.removeItem(GlobalParamNames.LOGIN_TOKEN)
                 }
 
