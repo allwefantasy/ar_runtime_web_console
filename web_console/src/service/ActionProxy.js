@@ -1,6 +1,7 @@
 import {RestResponse,Backend} from './backend/Backend'
 import RemoteAction from './RemoteAction'
 import {Method,Status} from './backend/RestConst'
+import {GlobalParamNames} from "./Dicts";
 
 export class UserActionParams {
   static USERE_NAME = "userName"   
