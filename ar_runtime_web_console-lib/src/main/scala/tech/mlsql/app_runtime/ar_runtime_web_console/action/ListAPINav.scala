@@ -36,13 +36,7 @@ object ListAPINav {
 
 class PublicNav extends ActionWithHelp with ActionInfo {
   override def _run(params: Map[String, String]): String = {
-    val navs = ctx.run(ctx.query[User].filter(_.name == lift("__public__"))).headOption match {
-      case Some(user) =>
-        val navs = ctx.run(ctx.query[ApiNav].filter(_.userId == lift(user.id)))
-        navs
-      case None =>
-        List[ApiNav]()
-    }
+    val navs = ctx.run(ctx.query[ApiNav])
     JSONTool.toJsonStr(navs.map { item =>
       KV(Option(item.title), Option(item.id.toString))
     })
